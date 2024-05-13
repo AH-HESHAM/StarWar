@@ -1,13 +1,16 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <iostream>
+#include "SolarSystem/SolarSystem.h"
 
 void drawScene(void);
+void animate(int value);
 void keyInput(unsigned char key, int x, int y);
 void resize(int w, int h);
 void setup(void);
 
-float Xangle = 0.0, Yangle = 0.0, Zangle = 0.0, offset = -50;
+float Xangle = 0.0, Yangle = 0.0, Zangle = 0.0, offset = -50, sunSpinAngle = 0.0;
+int rotationSpeed = 100;
 
 int main(int argc, char **argv)
 {
@@ -37,6 +40,9 @@ void drawScene(void)
    glRotatef(Yangle, 0, 1, 0);
    glRotatef(Zangle, 0, 0, 1);
 
+   SolarSystem *solarSystem = new SolarSystem();
+   solarSystem->drawSolarSystem(sunSpinAngle);
+
    // glBegin(GL_LINES);
    // glVertex3f(-10,0,0);
    // glVertex3f(10,0,0);
@@ -50,6 +56,15 @@ void drawScene(void)
 
    glPopMatrix();
    glFlush();
+}
+
+void animate(int value)
+{
+   sunSpinAngle += 1.0;
+   if (sunSpinAngle > 360.0)
+      sunSpinAngle -= 360.0;
+   glutPostRedisplay();
+   glutTimerFunc(rotationSpeed, animate, 1);
 }
 
 void keyInput(unsigned char key, int x, int y)
@@ -119,4 +134,5 @@ void setup(void)
 {
    glClearColor(0.0, 0.0, 0.0, 0.0);
    glEnable(GL_DEPTH_TEST);
+   animate(1);
 }
