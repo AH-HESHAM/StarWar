@@ -20,7 +20,7 @@ private:
 
     void generateZTranslate()
     {
-        zTranslate[0] = 9;
+        zTranslate[0] = 14;
         for (int i = 1; i < 8; i++)
             zTranslate[i] = zTranslate[i - 1] + redius[i] + redius[i - 1] + 2;
     }

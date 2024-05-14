@@ -75,10 +75,16 @@ void keyInput(unsigned char key, int x, int y)
    {
    case 'w':
       ez++;
+      if (ez == 1)
+         ez = 0;
+      std::cout << ez << "\n";
       glutPostRedisplay();
       break;
    case 'W':
       ez--;
+      if (ez == -40)
+         ez = -39;
+      std::cout << ez << "\n";
       glutPostRedisplay();
       break;
    case 'x':
@@ -144,26 +150,20 @@ void setup(void)
    glClearColor(0.0, 0.0, 0.0, 0.0);
    glEnable(GL_DEPTH_TEST);
    animate(1);
+
    // Turn on OpenGL lighting.
    glEnable(GL_LIGHTING);
-
    // Light property vectors.
    float lightAmb[] = {0.0, 0.0, 0.0, 1.0};
    float lightDifAndSpec[] = {1.0, 1.0, 1.0, 1.0};
-   float globAmb[] = {0.05, 0.05, 0.05, 1.0};
-   float lightPos[] = {0, 0, offset , 1.0};
-   // float lightPos2[] = {0, 0, offset - 9, 1.0};
+   float globAmb[] = {0.1, 0.1, 0.1, 1.0};
+   float lightPos[] = {0, 0, offset + 14, 1.0};
    // Light properties.
    glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmb);
    glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDifAndSpec);
    glLightfv(GL_LIGHT0, GL_SPECULAR, lightDifAndSpec);
    glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
    glEnable(GL_LIGHT0);
-   // glLightfv(GL_LIGHT1, GL_AMBIENT, lightAmb);
-   // glLightfv(GL_LIGHT1, GL_DIFFUSE, lightDifAndSpec);
-   // glLightfv(GL_LIGHT1, GL_SPECULAR, lightDifAndSpec);
-   // glLightfv(GL_LIGHT1, GL_POSITION, lightPos2);
-   // glEnable(GL_LIGHT1);
 
    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globAmb);
    glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
