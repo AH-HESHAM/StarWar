@@ -9,6 +9,7 @@ void keyInput(unsigned char key, int x, int y);
 void resize(int w, int h);
 void setup(void);
 
+
 int main(int argc, char **argv)
 {
    glutInit(&argc, argv);
@@ -26,6 +27,7 @@ int main(int argc, char **argv)
    setup();
    glutMainLoop();
 }
+
 
 void animate(int value)
 {
@@ -82,6 +84,22 @@ void keyInput(unsigned char key, int x, int y)
       break;
    case 'o':
       offset -= 0.25;
+      glutPostRedisplay();
+      break;
+      case 'w':
+      spacecraft.moveForward(10.0f);
+      glutPostRedisplay();
+      break;
+      case 's':
+      spacecraft.moveBackward(10.0f);
+      glutPostRedisplay();
+      break;
+      case 'a':
+      spacecraft.moveLeft(10.0f);
+      glutPostRedisplay();
+      break;
+      case 'd':
+      spacecraft.moveRight(10.0f);
       glutPostRedisplay();
       break;
 
