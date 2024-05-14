@@ -11,13 +11,13 @@ void setup(void);
 
 float Xangle = 0.0, Yangle = 0.0, Zangle = 0.0, offset = -50, sunSpinAngle = 0.0;
 int rotationSpeed = 100;
-
+float ez = 0.0;
 int main(int argc, char **argv)
 {
    glutInit(&argc, argv);
    glutInitContextVersion(4, 3);
    glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
-   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
+   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
    glutInitWindowSize(700, 700);
    glutInitWindowPosition(50, 50);
    glutCreateWindow("Soalr system");
@@ -33,6 +33,8 @@ int main(int argc, char **argv)
 void drawScene(void)
 {
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   glLoadIdentity();
+   gluLookAt(0.0, 0.0, ez, 0.0, 0.0, -100, 0.0, 1.0, 0.0);
    glColor3f(0, 0, 0);
    glPushMatrix();
    glTranslatef(0.0, 0.0, offset);
@@ -55,7 +57,7 @@ void drawScene(void)
    // glEnd();
 
    glPopMatrix();
-   glFlush();
+   glutSwapBuffers();
 }
 
 void animate(int value)
@@ -71,6 +73,14 @@ void keyInput(unsigned char key, int x, int y)
 {
    switch (key)
    {
+   case 'w':
+      ez++;
+      glutPostRedisplay();
+      break;
+   case 'W':
+      ez--;
+      glutPostRedisplay();
+      break;
    case 'x':
       Xangle += 5.0;
       if (Xangle > 360.0)
@@ -125,7 +135,6 @@ void resize(int w, int h)
 {
    glViewport(0, 0, w, h);
    glMatrixMode(GL_PROJECTION);
-   glLoadIdentity();
    glFrustum(-5.0, 5.0, -5.0, 5.0, 5.0, 100.0);
    glMatrixMode(GL_MODELVIEW);
 }
@@ -135,4 +144,38 @@ void setup(void)
    glClearColor(0.0, 0.0, 0.0, 0.0);
    glEnable(GL_DEPTH_TEST);
    animate(1);
+   // Turn on OpenGL lighting.
+   glEnable(GL_LIGHTING);
+
+   // Light property vectors.
+   float lightAmb[] = {0.0, 0.0, 0.0, 1.0};
+   float lightDifAndSpec[] = {1.0, 1.0, 1.0, 1.0};
+   float globAmb[] = {0.05, 0.05, 0.05, 1.0};
+   float lightPos[] = {0, 0, offset , 1.0};
+   // float lightPos2[] = {0, 0, offset - 9, 1.0};
+   // Light properties.
+   glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmb);
+   glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDifAndSpec);
+   glLightfv(GL_LIGHT0, GL_SPECULAR, lightDifAndSpec);
+   glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+   glEnable(GL_LIGHT0);
+   // glLightfv(GL_LIGHT1, GL_AMBIENT, lightAmb);
+   // glLightfv(GL_LIGHT1, GL_DIFFUSE, lightDifAndSpec);
+   // glLightfv(GL_LIGHT1, GL_SPECULAR, lightDifAndSpec);
+   // glLightfv(GL_LIGHT1, GL_POSITION, lightPos2);
+   // glEnable(GL_LIGHT1);
+
+   glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globAmb);
+   glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+
+   float matSpec[] = {1.0, 1.0, 1.0, 1.0};
+   float matShine[] = {50.0};
+
+   // Material properties shared by all the spheres.
+   glMaterialfv(GL_FRONT, GL_SPECULAR, matSpec);
+   glMaterialfv(GL_FRONT, GL_SHININESS, matShine);
+   glEnable(GL_CULL_FACE);
+   glCullFace(GL_BACK);
+   glEnable(GL_COLOR_MATERIAL);
+   glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 }
