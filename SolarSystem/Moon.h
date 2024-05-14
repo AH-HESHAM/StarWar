@@ -28,11 +28,10 @@ public:
     {
         glColor3f(red, green, blue);
         glPushMatrix();
-        glRotatef(aroundFollowerAngle, 0, 1, 0);
-        glRotatef(initAngle, 0, 1, 0);
-        glTranslatef(-2, 0, 0);
+        glRotatef(aroundFollowerAngle + initAngle, 0, 1, 0);
+        glTranslatef(-followed->getX(), 0, 0);
         glRotatef(aroundFollowerAngle * 5, 0, 0, 1);
-        glTranslatef(2, 0, 0);
+        glTranslatef(followed->getX(), 0, 0);
         glTranslatef(x, y, -z);
         glutSolidSphere(redius, 50, 50);
         glPopMatrix();
