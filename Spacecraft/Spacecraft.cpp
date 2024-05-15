@@ -8,9 +8,9 @@
 using namespace std;
 
 Spacecraft::Spacecraft(float initialX, float initialZ, float initialAngle)
-    : x(initialX), z(initialZ), angle(initialAngle), size(100.0f) {
+    : x(initialX), z(initialZ), angle(initialAngle), size(10.0f) {
     x = 0.0f;   
-    z = 1000.0f;
+    z = 0.0f;
     angle = 0.0f; 
 }
 

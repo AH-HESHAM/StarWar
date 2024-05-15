@@ -9,26 +9,6 @@ void keyInput(unsigned char key, int x, int y);
 void resize(int w, int h);
 void setup(void);
 
-
-int main(int argc, char **argv)
-{
-   glutInit(&argc, argv);
-   glutInitContextVersion(4, 3);
-   glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
-   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-   glutInitWindowSize(700, 700);
-   glutInitWindowPosition(50, 50);
-   glutCreateWindow("Solar system");
-   glutDisplayFunc(drawScene);
-   glutReshapeFunc(resize);
-   glutKeyboardFunc(keyInput);
-   glewExperimental = GL_TRUE;
-   glewInit();
-   setup();
-   glutMainLoop();
-}
-
-
 void animate(int value)
 {
    sunSpinAngle += 0.5;
@@ -37,6 +17,7 @@ void animate(int value)
    glutPostRedisplay();
    glutTimerFunc(rotationSpeed, animate, 1);
 }
+
 
 void keyInput(unsigned char key, int x, int y)
 {
@@ -79,19 +60,21 @@ void keyInput(unsigned char key, int x, int y)
       glutPostRedisplay();
       break;
    case 'O':
-      offset += 0.25;
+      //offset += 0.25;
       glutPostRedisplay();
       break;
    case 'o':
-      offset -= 0.25;
+      //offset -= 0.25;
       glutPostRedisplay();
       break;
       case 'w':
       spacecraft.moveForward(10.0f);
+      cout << 'w' << endl;
       glutPostRedisplay();
       break;
-      case 's':
+       case 's':
       spacecraft.moveBackward(10.0f);
+      cout << 's' << endl;
       glutPostRedisplay();
       break;
       case 'a':
@@ -110,16 +93,36 @@ void keyInput(unsigned char key, int x, int y)
 
 void resize(int w, int h)
 {
-    glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45.0, (double)w / (double)h, 1.0, 10000.0); 
+
+    glFrustum(Utility::frustumLeft, Utility::frustumRight, Utility::frustumBottom,
+              Utility::frustumTop, Utility::frustumZNear, Utility::frustumZFar);
+
     glMatrixMode(GL_MODELVIEW);
 }
 
 void setup(void)
 {
-   glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClearColor(0.0, 0.0, 0.0, 0.0);
    glEnable(GL_DEPTH_TEST);
    animate(1);
+}
+
+int main(int argc, char **argv)
+{
+    glutInit(&argc, argv);
+    glutInitContextVersion(4, 3);
+    glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+    glutInitWindowSize(700, 700);
+    glutInitWindowPosition(50, 50);
+    glutCreateWindow("Solar system");
+    glutDisplayFunc(drawScene);
+    glutReshapeFunc(resize);
+    glutKeyboardFunc(keyInput);
+    glewExperimental = GL_TRUE;
+    glewInit();
+    setup();
+    glutMainLoop();
 }
