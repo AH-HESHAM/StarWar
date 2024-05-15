@@ -113,7 +113,7 @@ void setup(void)
    float lightAmb[] = {0.0, 0.0, 0.0, 1.0};
    float lightDifAndSpec[] = {1.0, 1.0, 1.0, 1.0};
    float globAmb[] = {0.1, 0.1, 0.1, 1.0};
-   float lightPos[] = {0, 0, offset + 14, 1.0};
+   float lightPos[] = {0, 0, -40 + 14, 1.0};
    // Light properties.
    glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmb);
    glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDifAndSpec);
