@@ -2,63 +2,12 @@
 #include <GL/freeglut.h>
 #include <iostream>
 #include "SolarSystem/SolarSystem.h"
+#include "Views/Views.cpp"
 
-void drawScene(void);
 void animate(int value);
 void keyInput(unsigned char key, int x, int y);
 void resize(int w, int h);
 void setup(void);
-
-float Xangle = 0.0, Yangle = 0.0, Zangle = 0.0, offset = -50, sunSpinAngle = 0.0;
-int rotationSpeed = 100;
-float ez = 0.0;
-int main(int argc, char **argv)
-{
-   glutInit(&argc, argv);
-   glutInitContextVersion(4, 3);
-   glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
-   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-   glutInitWindowSize(700, 700);
-   glutInitWindowPosition(50, 50);
-   glutCreateWindow("Soalr system");
-   glutDisplayFunc(drawScene);
-   glutReshapeFunc(resize);
-   glutKeyboardFunc(keyInput);
-   glewExperimental = GL_TRUE;
-   glewInit();
-   setup();
-   glutMainLoop();
-}
-
-void drawScene(void)
-{
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-   glLoadIdentity();
-   gluLookAt(0.0, 0.0, ez, 0.0, 0.0, -100, 0.0, 1.0, 0.0);
-   glColor3f(0, 0, 0);
-   glPushMatrix();
-   glTranslatef(0.0, 0.0, offset);
-   glRotatef(Xangle, 1, 0, 0);
-   glRotatef(Yangle, 0, 1, 0);
-   glRotatef(Zangle, 0, 0, 1);
-
-   SolarSystem *solarSystem = new SolarSystem();
-   solarSystem->drawSolarSystem(sunSpinAngle);
-
-   // glBegin(GL_LINES);
-   // glVertex3f(-10,0,0);
-   // glVertex3f(10,0,0);
-   // glColor3f(1,1,1);
-   // glVertex3f(0,-10,0);
-   // glVertex3f(0,10,0);
-   // glColor3f(1,0,0);
-   // glVertex3f(0,0,100);
-   // glVertex3f(0,0,-100);
-   // glEnd();
-
-   glPopMatrix();
-   glutSwapBuffers();
-}
 
 void animate(int value)
 {
@@ -73,20 +22,6 @@ void keyInput(unsigned char key, int x, int y)
 {
    switch (key)
    {
-   case 'w':
-      ez++;
-      if (ez == 1)
-         ez = 0;
-      std::cout << ez << "\n";
-      glutPostRedisplay();
-      break;
-   case 'W':
-      ez--;
-      if (ez == -40)
-         ez = -39;
-      std::cout << ez << "\n";
-      glutPostRedisplay();
-      break;
    case 'x':
       Xangle += 5.0;
       if (Xangle > 360.0)
@@ -124,11 +59,29 @@ void keyInput(unsigned char key, int x, int y)
       glutPostRedisplay();
       break;
    case 'O':
-      offset += 0.25;
+      //offset += 0.25;
       glutPostRedisplay();
       break;
    case 'o':
-      offset -= 0.25;
+      //offset -= 0.25;
+      glutPostRedisplay();
+      break;
+      case 'w':
+      spacecraft.moveForward(10.0f);
+      cout << 'w' << endl;
+      glutPostRedisplay();
+      break;
+       case 's':
+      spacecraft.moveBackward(10.0f);
+      cout << 's' << endl;
+      glutPostRedisplay();
+      break;
+      case 'a':
+      spacecraft.moveLeft(10.0f);
+      glutPostRedisplay();
+      break;
+      case 'd':
+      spacecraft.moveRight(10.0f);
       glutPostRedisplay();
       break;
 
@@ -139,10 +92,13 @@ void keyInput(unsigned char key, int x, int y)
 
 void resize(int w, int h)
 {
-   glViewport(0, 0, w, h);
-   glMatrixMode(GL_PROJECTION);
-   glFrustum(-5.0, 5.0, -5.0, 5.0, 5.0, 100.0);
-   glMatrixMode(GL_MODELVIEW);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    glFrustum(Utility::frustumLeft, Utility::frustumRight, Utility::frustumBottom,
+              Utility::frustumTop, Utility::frustumZNear, Utility::frustumZFar);
+
+    glMatrixMode(GL_MODELVIEW);
 }
 
 void setup(void)
@@ -178,4 +134,22 @@ void setup(void)
    glCullFace(GL_BACK);
    glEnable(GL_COLOR_MATERIAL);
    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+}
+
+int main(int argc, char **argv)
+{
+    glutInit(&argc, argv);
+    glutInitContextVersion(4, 3);
+    glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+    glutInitWindowSize(700, 700);
+    glutInitWindowPosition(50, 50);
+    glutCreateWindow("Solar system");
+    glutDisplayFunc(drawScene);
+    glutReshapeFunc(resize);
+    glutKeyboardFunc(keyInput);
+    glewExperimental = GL_TRUE;
+    glewInit();
+    setup();
+    glutMainLoop();
 }

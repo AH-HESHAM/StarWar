@@ -17,6 +17,7 @@ private:
     float green[8] = {184, 46, 0.0, 0.0, 113, 83.0, 156.0, 94.0};
     float blue[8] = {102, 10, 255.0, 0.0, 5.0, 17.0, 213.0, 213.0};
     float zTranslate[8];
+    int offset = -50;
 
     void generateZTranslate()
     {
@@ -58,8 +59,11 @@ public:
 
     void drawSolarSystem(float angle)
     {
+        glPushMatrix();
+        glTranslatef(0.0, 0.0, offset);
         sun->drawBody(0.0);
         drawPlanets(angle);
+        glPopMatrix();
     }
 };
 #endif
