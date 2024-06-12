@@ -34,6 +34,8 @@ void keyInput(unsigned char key, int x, int y)
          Xangle += 360.0;
       glutPostRedisplay();
       break;
+
+
    case 'y':
       Yangle += 5.0;
       if (Yangle > 360.0)
@@ -46,6 +48,8 @@ void keyInput(unsigned char key, int x, int y)
          Yangle += 360.0;
       glutPostRedisplay();
       break;
+
+
    case 'z':
       Zangle += 5.0;
       if (Zangle > 360.0)
@@ -58,6 +62,8 @@ void keyInput(unsigned char key, int x, int y)
          Zangle += 360.0;
       glutPostRedisplay();
       break;
+
+
    case 'O':
       //offset += 0.25;
       glutPostRedisplay();
@@ -66,22 +72,28 @@ void keyInput(unsigned char key, int x, int y)
       //offset -= 0.25;
       glutPostRedisplay();
       break;
-      case 'w':
+
+
+   case 'w':
       spacecraft.moveForward(10.0f);
       cout << 'w' << endl;
       glutPostRedisplay();
       break;
-       case 's':
+   case 's':
       spacecraft.moveBackward(10.0f);
       cout << 's' << endl;
       glutPostRedisplay();
       break;
-      case 'a':
-      spacecraft.moveLeft(10.0f);
+
+
+   case 'a':
+      spacecraft.turnLeft(5.0f);
+      cout << 'a' << endl;
       glutPostRedisplay();
       break;
-      case 'd':
-      spacecraft.moveRight(10.0f);
+   case 'd':
+      cout << 'd' << endl;
+      spacecraft.turnRight(5.0f);
       glutPostRedisplay();
       break;
 

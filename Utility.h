@@ -10,6 +10,7 @@ public:
     static const double frustumTop;
     static const double frustumZNear;
     static const double frustumZFar;
+    static const double PI;
 };
 
 
