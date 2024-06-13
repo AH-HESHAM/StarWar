@@ -1,6 +1,6 @@
 #include "Drawer.h"
 #include <GL/freeglut.h>
-#include "Views/Views.h"
+#include "../Views/Views.h"
 #include <iostream>
 
 using namespace std;

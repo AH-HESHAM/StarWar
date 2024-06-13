@@ -2,8 +2,8 @@
 #define VIEWS_H
 
 
-#include "SolarSystem/SolarSystem.h"
-#include "Spacecraft/Spacecraft.h"
+#include "../SolarSystem/SolarSystem.h"
+#include "../Spacecraft/Spacecraft.h"
 #include <functional>
 
 class Views{
