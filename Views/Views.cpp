@@ -6,8 +6,7 @@
 #include "../Pickables/PlusSign.h"
 #include "../Pickables/PlusSign.cpp"
 #include "../SolarSystem/SolarSystem.h"
-#include "../Pickables/RedArrow.h"
-#include "../Pickables/RedArrow.cpp"
+#include "../Pickables/Object.h"
 #include <vector>
 #include <memory>
 
@@ -34,7 +33,6 @@ void drawScene() {
 
     // top view
     topView();
-
 
     glutSwapBuffers();
 
@@ -74,8 +72,7 @@ void gameShow() {
     glColor3f(0.0, 0.0, 0.0);
     solarSystem.drawSolarSystem(sunSpinAngle);
     spacecraft.draw();
-    drawAllPlusSigns();
-    drawAllRedArrows();
+    drawAllObjects(0);
 }
 
 

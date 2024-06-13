@@ -1,19 +1,59 @@
-#ifndef REDARROW_H
-#define REDARROW_H
+// // RedArrow.h
+// #ifndef REDARROW_H
+// #define REDARROW_H
 
-#include <vector>
-#include <utility> // For std::pair
+// #include "Object.h"
+// #include <GL/freeglut.h>
+// #include <cmath>
 
-// Initializes the red arrow system
-void initializeRedArrows(int numArrows);
+// class RedArrow : public Object {
+// public:
+//     RedArrow(float x, float z) : Object(x, z) {}
 
-// Updates red arrow positions
-void updateRedArrows(int value);
+//     void draw() const override {
+//         float arrowBaseSize = 2.0f;
+//         float arrowHeight = 3.0f;
+//         float floatHeight = 0.5f;
+//         float verticalOffset = floatHeight * sin(animationTime);
 
-// Draws all red arrows
-void drawAllRedArrows();
+//         glColor3f(1.0f, 0.0f, 0.0f);
+//         float halfBase = arrowBaseSize / 2.0f;
 
-// Updates the animation time for floating effect
-void updateAnimation(int value);
+//         glBegin(GL_TRIANGLES);
 
-#endif // REDARROW_H
+//         // Front face
+//         glVertex3f(position.first, arrowHeight + verticalOffset, position.second);
+//         glVertex3f(position.first - halfBase, verticalOffset, position.second + halfBase);
+//         glVertex3f(position.first + halfBase, verticalOffset, position.second + halfBase);
+
+//         // Right face
+//         glVertex3f(position.first, arrowHeight + verticalOffset, position.second);
+//         glVertex3f(position.first + halfBase, verticalOffset, position.second + halfBase);
+//         glVertex3f(position.first + halfBase, verticalOffset, position.second - halfBase);
+
+//         // Back face
+//         glVertex3f(position.first, arrowHeight + verticalOffset, position.second);
+//         glVertex3f(position.first + halfBase, verticalOffset, position.second - halfBase);
+//         glVertex3f(position.first - halfBase, verticalOffset, position.second - halfBase);
+
+//         // Left face
+//         glVertex3f(position.first, arrowHeight + verticalOffset, position.second);
+//         glVertex3f(position.first - halfBase, verticalOffset, position.second - halfBase);
+//         glVertex3f(position.first - halfBase, verticalOffset, position.second + halfBase);
+
+//         glEnd();
+
+//         glBegin(GL_QUADS);
+//         glVertex3f(position.first - halfBase, verticalOffset, position.second + halfBase);
+//         glVertex3f(position.first + halfBase, verticalOffset, position.second + halfBase);
+//         glVertex3f(position.first + halfBase, verticalOffset, position.second - halfBase);
+//         glVertex3f(position.first - halfBase, verticalOffset, position.second - halfBase);
+//         glEnd();
+//     }
+
+//     void update(float deltaTime) override {
+//         Object::update(deltaTime);
+//     }
+// };
+
+// #endif // REDARROW_H

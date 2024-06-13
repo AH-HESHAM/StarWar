@@ -2,29 +2,28 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include <vector>
 #include <utility>
 
-class Object {
-public:
-    Object(float x, float z) : position(x, z), animationTime(0.0f) {}
-
-    virtual ~Object() = default;
-
-    virtual void draw() const = 0;
-    virtual void update(float deltaTime) {
-        animationTime += deltaTime;
-        if (animationTime > 2.0f * 3.14159f) {
-            animationTime -= 2.0f * 3.14159f;
-        }
-    }
-
-    std::pair<float, float> getPosition() const {
-        return position;
-    }
-
-protected:
-    std::pair<float, float> position;
+struct Object {
+    float x, z;
     float animationTime;
+    bool isArrow; // true for red false for green
+
+    Object(float x, float z, bool isArrow);
 };
+
+extern std::vector<Object> objects;
+static int TIME_INTERVAL = 10000;
+
+const float ARROW_BASE_SIZE = 2.0f;
+const float ARROW_HEIGHT = 3.0f;
+const float PLUS_SIGN_SIZE = 2.0f;
+const float FLOAT_HEIGHT = 0.5f;
+
+void initializeObjects();
+void updateAnimation(int value);
+void updateObjectPositions(int value);
+void drawAllObjects(int value);
 
 #endif // OBJECT_H
