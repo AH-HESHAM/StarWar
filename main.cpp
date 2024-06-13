@@ -3,11 +3,13 @@
 #include <iostream>
 #include "SolarSystem/SolarSystem.h"
 #include "Views/Views.cpp"
+#include "Menu/Menu.h"
 
 void animate(int value);
 void keyInput(unsigned char key, int x, int y);
 void resize(int w, int h);
 void setup(void);
+void SelectMode(int mode);
 
 void animate(int value)
 {
@@ -34,8 +36,6 @@ void keyInput(unsigned char key, int x, int y)
          Xangle += 360.0;
       glutPostRedisplay();
       break;
-
-
    case 'y':
       Yangle += 5.0;
       if (Yangle > 360.0)
@@ -48,8 +48,6 @@ void keyInput(unsigned char key, int x, int y)
          Yangle += 360.0;
       glutPostRedisplay();
       break;
-
-
    case 'z':
       Zangle += 5.0;
       if (Zangle > 360.0)
@@ -62,8 +60,6 @@ void keyInput(unsigned char key, int x, int y)
          Zangle += 360.0;
       glutPostRedisplay();
       break;
-
-
    case 'O':
       //offset += 0.25;
       glutPostRedisplay();
@@ -72,9 +68,7 @@ void keyInput(unsigned char key, int x, int y)
       //offset -= 0.25;
       glutPostRedisplay();
       break;
-
-
-   case 'w':
+      case 'w':
       spacecraft.moveForward(10.0f);
       cout << 'w' << endl;
       glutPostRedisplay();
@@ -84,16 +78,12 @@ void keyInput(unsigned char key, int x, int y)
       cout << 's' << endl;
       glutPostRedisplay();
       break;
-
-
    case 'a':
-      spacecraft.turnLeft(5.0f);
-      cout << 'a' << endl;
+      spacecraft.moveLeft(10.0f);
       glutPostRedisplay();
       break;
    case 'd':
-      cout << 'd' << endl;
-      spacecraft.turnRight(5.0f);
+      spacecraft.moveRight(10.0f);
       glutPostRedisplay();
       break;
 
@@ -104,13 +94,13 @@ void keyInput(unsigned char key, int x, int y)
 
 void resize(int w, int h)
 {
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
+   glMatrixMode(GL_PROJECTION);
+   glLoadIdentity();
 
-    glFrustum(Utility::frustumLeft, Utility::frustumRight, Utility::frustumBottom,
-              Utility::frustumTop, Utility::frustumZNear, Utility::frustumZFar);
+   glFrustum(Utility::frustumLeft, Utility::frustumRight, Utility::frustumBottom,
+             Utility::frustumTop, Utility::frustumZNear, Utility::frustumZFar);
 
-    glMatrixMode(GL_MODELVIEW);
+   glMatrixMode(GL_MODELVIEW);
 }
 
 void setup(void)
@@ -150,18 +140,19 @@ void setup(void)
 
 int main(int argc, char **argv)
 {
-    glutInit(&argc, argv);
-    glutInitContextVersion(4, 3);
-    glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-    glutInitWindowSize(700, 700);
-    glutInitWindowPosition(50, 50);
-    glutCreateWindow("Solar system");
-    glutDisplayFunc(drawScene);
-    glutReshapeFunc(resize);
-    glutKeyboardFunc(keyInput);
-    glewExperimental = GL_TRUE;
-    glewInit();
-    setup();
-    glutMainLoop();
+   glutInit(&argc, argv);
+   glutInitContextVersion(4, 3);
+   glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
+   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+   glutInitWindowSize(700, 700);
+   glutInitWindowPosition(50, 50);
+   glutCreateWindow("Solar system");
+   Menu *menu = new Menu(SelectMode, difficultyHandler);
+   glutDisplayFunc(showMenu);
+   glutReshapeFunc(resize);
+   glutKeyboardFunc(keyInput);
+   glewExperimental = GL_TRUE;
+   glewInit();
+   setup();
+   glutMainLoop();
 }
