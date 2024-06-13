@@ -16,7 +16,8 @@ public:
         glPushMatrix();
         glRotatef(aroundFollowerAngle + initAngle, 0, 1, 0);
         glTranslatef(x, y, -z);
-        glutSolidSphere(redius, 50, 50);
+        glutSolidSphere(redius, 20, 20);
+//        drawSphere();
         glPopMatrix();
     }
 };
