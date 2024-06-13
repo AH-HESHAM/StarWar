@@ -44,3 +44,35 @@ void Spacecraft::moveBackward(float distance) {
     x -= distance * sin(angle * Utility::PI / 180.0f);
     z += distance * cos(angle * Utility::PI / 180.0f);
 }
+
+double Spacecraft::getZComponentOfViewedPoint(double randomDistance) {
+    return z - randomDistance * cos(angle * Utility::PI / 180.0f);
+}
+
+double Spacecraft::getXComponentOfViewedPoint(double randomDistance) {
+    return x + randomDistance * sin(angle * Utility::PI / 180.0f);
+}
+
+void Spacecraft::move(unsigned char key) {
+    switch (key) {
+        case 'w':
+            moveForward(10.0f);
+            std::cout << "Moving forward ('w')" << std::endl;
+            break;
+        case 's':
+            moveBackward(10.0f);
+            std::cout << "Moving backward ('s')" << std::endl;
+            break;
+        case 'a':
+            turnLeft(10.0f);
+            std::cout << "Turning left ('a')" << std::endl;
+            break;
+        case 'd':
+            turnRight(10.0f);
+            std::cout << "Turning right ('d')" << std::endl;
+            break;
+        default:
+            // Handle unrecognized keys if needed
+            break;
+    }
+}

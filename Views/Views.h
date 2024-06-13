@@ -1,7 +1,16 @@
 #ifndef VIEWS_H
 #define VIEWS_H
 
-void drawScene(void);
-void drawTopView(void);
 
+#include "SolarSystem/SolarSystem.h"
+#include "Spacecraft/Spacecraft.h"
+#include <functional>
+
+class Views{
+
+public:
+    Views() {}
+    void topView(const std::function<void()>& gameShow);
+    void spaceCraftView(const function<void()> &gameShow, Spacecraft &spacecraft);
+};
 #endif /* VIEWS_DRAWER_H */
