@@ -1,8 +1,6 @@
 #include "Game.h"
-#include "../Views/Views.h"
 #include <GL/freeglut.h>
-#include "Drawer/Drawer.h"
-#include "Drawer/Drawer.cpp"
+#include "../Drawer/Drawer.cpp"
 // needed.
 // glutTimerFunc(25, update, 0);
 

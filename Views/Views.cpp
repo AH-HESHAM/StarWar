@@ -3,9 +3,9 @@
 #include "../Spacecraft/Spacecraft.h"
 #include "../Spacecraft/Spacecraft.cpp"
 #include "../Utility.cpp"
-#include "Views.h"
+#include "../Views/Views.h"
 
-float Xangle = 0.0, Yangle = 0.0, Zangle = 0.0, sunSpinAngle = 0.0;
+float sunSpinAngle = 0.0;
 int rotationSpeed = 100;
 
 void Views::topView(const std::function<void()>& gameShow) {

@@ -3,10 +3,12 @@
 #ifndef SPACECRAFT_H
 #define SPACECRAFT_H
 
+#include "../Utility.h"
+
 class Spacecraft {
 public:
     Spacecraft(float initialX, float initialZ, float initialAngle);
-    void draw() const;
+
     void turnLeft(float angleIncrement);
     void turnRight(float angleIncrement);
 
@@ -16,20 +18,17 @@ public:
     double getXComponentOfViewedPoint(double randomDistance);
     double getZComponentOfViewedPoint(double randomDistance);
 
-    void turnUp(float angleIncrement);
-    void turnClockwise(float angleIncrement);
-
     float getX() const { return x; }
     float getZ() const { return z; }
     float getAngle() const { return angle; }
-
-    void move(unsigned char key);
-
-private:
+    float isAlive() const { return health > Utility::EPSILON; }
+protected:
     float x; 
     float z;
     float angle;
     float size;
+    float health;
+    const float MAX_HEALTH = 120;
 };
 
 #endif

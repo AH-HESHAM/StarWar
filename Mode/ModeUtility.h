@@ -1,5 +1,8 @@
 #ifndef STARWAR_MODEUTILITY_H
 #define STARWAR_MODEUTILITY_H
+
+#include <map>
+
 class ModeUtility
 {
 public:
@@ -15,8 +18,12 @@ public:
         HARD
     };
 
+    static std::map<Difficulty, float> enemyDamage;
+    static std::map<Difficulty, int> numberOfEnemies;
+
     static int modeDiff;
     static Difficulty getDifficulty();
     static ChoosenMode getMode();
 };
-#endif
+
+#endif // STARWAR_MODEUTILITY_H

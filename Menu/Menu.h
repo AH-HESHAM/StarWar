@@ -4,7 +4,7 @@
 #include <GL/freeglut.h>
 // #include "../Mode/ModeUtility.h"
 #include "../Mode/ModeUtility.cpp"
-#include "Game/Game.cpp"
+#include "../Game/Game.cpp"
 #include <iostream>
 
 using namespace std;

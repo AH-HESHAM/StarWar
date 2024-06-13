@@ -1,6 +1,19 @@
 #include "ModeUtility.h"
 
-int ModeUtility::modeDiff; 
+// Initialize static members
+int ModeUtility::modeDiff = 0;
+
+std::map<ModeUtility::Difficulty, float> ModeUtility::enemyDamage = {
+        {ModeUtility::EASY, 20.0f},
+        {ModeUtility::MEDIUM, 30.0f},
+        {ModeUtility::HARD, 40.0f}
+};
+
+std::map<ModeUtility::Difficulty, int> ModeUtility::numberOfEnemies = {
+        {ModeUtility::EASY, 4},
+        {ModeUtility::MEDIUM, 8},
+        {ModeUtility::HARD, 12}
+};
 
 ModeUtility::ChoosenMode ModeUtility::getMode()
 {

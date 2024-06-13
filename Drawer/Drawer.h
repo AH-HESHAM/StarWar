@@ -1,18 +1,24 @@
 
 #ifndef STARWAR_DRAWER_H
 #define STARWAR_DRAWER_H
-#include "Views/Views.h"
+#include "../Views/Views.h"
+#include "../Spacecraft/User.h"
+#include "../Spacecraft/Enemy.h"
 
 class Drawer {
 private:
-    Drawer(): views(), spacecraft(0.0f, 0, 0.0f), solarSystem() {}
+    Drawer(): views(), userSpacecraft(0.0f, 0, 0.0f), solarSystem() {
+        enemyInitialization();
+    }
     static Drawer instance;
     Views views;
+    std::vector<Enemy> enemies;
 
 public:
-    Spacecraft spacecraft;
+    User userSpacecraft;
     SolarSystem solarSystem;
 
+    void enemyInitialization();
     static Drawer getInstance();
     static void drawSceneWrapper();
     static void keyboardUpdate(unsigned char key, int x, int y) ;
