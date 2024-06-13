@@ -2,7 +2,9 @@
 #include <GL/freeglut.h>
 #include <iostream>
 #include "SolarSystem/SolarSystem.h"
+#include "Pickables/PlusSign.h"
 #include "Views/Views.cpp"
+#include "Pickables/RedArrow.h"
 
 void animate(int value);
 void keyInput(unsigned char key, int x, int y);
@@ -138,6 +140,8 @@ void setup(void)
 
    float matSpec[] = {1.0, 1.0, 1.0, 1.0};
    float matShine[] = {50.0};
+   initializePlusSigns(5);
+   initializeRedArrows(5); 
 
    // Material properties shared by all the spheres.
    glMaterialfv(GL_FRONT, GL_SPECULAR, matSpec);
@@ -146,8 +150,13 @@ void setup(void)
    glCullFace(GL_BACK);
    glEnable(GL_COLOR_MATERIAL);
    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
-}
 
+   //pickable objects
+   glutTimerFunc(TIMER_INTERVAL, updatePlusSigns, 0);
+   glutTimerFunc(TIMER_INTERVAL, updateRedArrows, 0);
+   glutTimerFunc(16, updateAnimation, 0);
+   glutTimerFunc(16, updatePlusSignAnimation, 0);
+}
 int main(int argc, char **argv)
 {
     glutInit(&argc, argv);

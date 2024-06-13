@@ -3,12 +3,20 @@
 #include "../Spacecraft/Spacecraft.h"
 #include "../Spacecraft/Spacecraft.cpp"
 #include "../Utility.cpp"
+#include "../Pickables/PlusSign.h"
+#include "../Pickables/PlusSign.cpp"
+#include "../SolarSystem/SolarSystem.h"
+#include "../Pickables/RedArrow.h"
+#include "../Pickables/RedArrow.cpp"
+#include <vector>
+#include <memory>
 
 float Xangle = 0.0, Yangle = 0.0, Zangle = 0.0, sunSpinAngle = 0.0;
 int rotationSpeed = 100;
 
 SolarSystem solarSystem;
 Spacecraft spacecraft(0.0f, 0, 0.0f);
+
 
 void gameShow();
 void spaceCraftView();
@@ -26,6 +34,7 @@ void drawScene() {
 
     // top view
     topView();
+
 
     glutSwapBuffers();
 
@@ -60,8 +69,13 @@ double getXComponentOfViewedPoint(double randomDistance) {
     return spacecraft.getX() + randomDistance * sin(spacecraft.getAngle() * Utility::PI / 180.0f);
 }
 
+
 void gameShow() {
     glColor3f(0.0, 0.0, 0.0);
     solarSystem.drawSolarSystem(sunSpinAngle);
     spacecraft.draw();
+    drawAllPlusSigns();
+    drawAllRedArrows();
 }
+
+
