@@ -3,35 +3,12 @@
 #include "../Spacecraft/Spacecraft.h"
 #include "../Spacecraft/Spacecraft.cpp"
 #include "../Utility.cpp"
+#include "Views.h"
 
 float Xangle = 0.0, Yangle = 0.0, Zangle = 0.0, sunSpinAngle = 0.0;
 int rotationSpeed = 100;
 
-SolarSystem solarSystem;
-Spacecraft spacecraft(0.0f, 0, 0.0f);
-
-void gameShow();
-void spaceCraftView();
-void topView();
-double getXComponentOfViewedPoint(double randomDistance);
-double getZComponentOfViewedPoint(double randomDistance);
-
-void drawScene() {
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLineWidth(2.0);
-
-    // space-craft view
-    spaceCraftView();
-
-    // top view
-    topView();
-
-    glutSwapBuffers();
-
-}
-
-void topView() {
+void Views::topView(const std::function<void()>& gameShow) {
     glLoadIdentity();
     int lowerPoint = glutGet(GLUT_WINDOW_HEIGHT) * 2 / 3;
     int higherPoint = glutGet(GLUT_WINDOW_HEIGHT) - 10;
@@ -42,26 +19,12 @@ void topView() {
     gameShow();
 }
 
-void spaceCraftView() {
+void Views::spaceCraftView(const std::function<void()>& gameShow, Spacecraft &spacecraft) {
     glLoadIdentity();
     glViewport(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
     double randomDistance = 10.0;
     gluLookAt(spacecraft.getX(), 0, spacecraft.getZ(),
-              getXComponentOfViewedPoint(randomDistance), 0, getZComponentOfViewedPoint(randomDistance),
+              spacecraft.getXComponentOfViewedPoint(randomDistance), 0, spacecraft.getZComponentOfViewedPoint(randomDistance),
               0, 1, 0);
     gameShow();
-}
-
-double getZComponentOfViewedPoint(double randomDistance) {
-    return spacecraft.getZ() - randomDistance * cos(spacecraft.getAngle() * Utility::PI / 180.0f);
-}
-
-double getXComponentOfViewedPoint(double randomDistance) {
-    return spacecraft.getX() + randomDistance * sin(spacecraft.getAngle() * Utility::PI / 180.0f);
-}
-
-void gameShow() {
-    glColor3f(0.0, 0.0, 0.0);
-    solarSystem.drawSolarSystem(sunSpinAngle);
-    spacecraft.draw();
 }

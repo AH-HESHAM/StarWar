@@ -4,6 +4,7 @@
 #include <GL/freeglut.h>
 // #include "../Mode/ModeUtility.h"
 #include "../Mode/ModeUtility.cpp"
+#include "Game/Game.cpp"
 #include <iostream>
 
 using namespace std;
@@ -65,7 +66,9 @@ void difficultyHandler(int diff)
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glutDetachMenu(GLUT_LEFT_BUTTON);
     ModeUtility::modeDiff = diff;
-    glutDisplayFunc(drawScene);
+    // game initialization
+    Game game;
+    game.startGame();
     std::cout<<"Mode"<<ModeUtility::getMode()<<"Diff"<<ModeUtility::getDifficulty();
 }
 
