@@ -147,7 +147,7 @@ int main(int argc, char **argv)
    glutInitWindowSize(700, 700);
    glutInitWindowPosition(50, 50);
    glutCreateWindow("Solar system");
-   Menu *menu = new Menu(SelectMode);
+   Menu *menu = new Menu(SelectMode, difficultyHandler);
    glutDisplayFunc(showMenu);
    glutReshapeFunc(resize);
    glutKeyboardFunc(keyInput);
@@ -155,20 +155,4 @@ int main(int argc, char **argv)
    glewInit();
    setup();
    glutMainLoop();
-}
-
-void SelectMode(int mode)
-{
-   glClearColor(0.0,0.0,0.0,0.0);
-   glutDetachMenu(GLUT_LEFT_BUTTON);
-   if (mode == 0)
-   {
-      // call survive mode
-      glutDisplayFunc(drawScene);
-   }
-   else
-   {
-      // call timer mode
-      glutDisplayFunc(drawScene);
-   }
 }
