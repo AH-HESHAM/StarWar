@@ -33,7 +33,8 @@ private:
         for (int i = 0; i < 8; i++)
         {
             planets[i] = new Planet(redius[i], red[i] / 255.0, green[i] / 255.0, blue[i] / 255.0);
-            planets[i]->setName(planetsNames[i]); 
+            moon = new Moon(planets[2]);
+            planets[i]->setName(planetsNames[i]);
         }
     }
 
@@ -48,7 +49,10 @@ private:
             planet->drawBody(sunSpinAngle);
             if (j == 2)
             {
-                moon = new Moon(planets[2]);
+                moon->setInitAngle(planets[2]->getInitAngle());
+                moon->setX(planets[2]->getX() + planets[2]->getReduis() + 2);
+                moon->setY(planets[2]->getY());
+                moon->setZ(planets[2]->getZ());
                 moon->drawBody(sunSpinAngle);
             }
         }

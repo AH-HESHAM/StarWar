@@ -9,19 +9,11 @@ class Moon : public SpaceBody
 private:
     SpaceBody *followed;
 
-    void initMoon()
-    {
-        setInitAngle(followed->getInitAngle());
-        setX(followed->getX() + followed->getReduis() + 2);
-        setY(followed->getY());
-        setZ(followed->getZ());
-    }
 
 public:
     Moon(SpaceBody *followed) : SpaceBody(1.0, 1.0, 1.0, 1.0)
     {
         this->followed = followed;
-        initMoon();
     }
 
     void drawBody(float aroundFollowerAngle)
