@@ -17,6 +17,7 @@ private:
     float green[8] = {184, 46, 0.0, 0.0, 113, 83.0, 156.0, 94.0};
     float blue[8] = {102, 10, 255.0, 0.0, 5.0, 17.0, 213.0, 213.0};
     float zTranslate[8];
+    string planetsNames[8] = {"mercury", "venus", "earth", "mars", "jupitar", "saturn", "uranus", "neptune"};
     int offset = -50;
 
     void generateZTranslate()
@@ -30,7 +31,10 @@ private:
     {
         sun = new Sun();
         for (int i = 0; i < 8; i++)
+        {
             planets[i] = new Planet(redius[i], red[i] / 255.0, green[i] / 255.0, blue[i] / 255.0);
+            planets[i]->setName(planetsNames[i]); 
+        }
     }
 
     void drawPlanets(float sunSpinAngle)

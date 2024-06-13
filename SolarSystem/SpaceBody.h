@@ -2,10 +2,14 @@
 #define SPACEBODY_H
 #include <GL/glew.h>
 #include <GL/freeglut.h>
+#include <bits/stdc++.h>
+using namespace std;
+
 class SpaceBody
 {
 protected:
     float x = 0.0, y = 0.0, z = 0.0, redius, initAngle = 0.0, red, green, blue;
+    string name = "";
 
 public:
     SpaceBody(int redius, float red, float green, float blue)
@@ -60,6 +64,14 @@ public:
     float getReduis()
     {
         return redius;
+    }
+
+    void setName(string PlanetName){
+        name = PlanetName;
+    }
+
+    string getName(){
+        return name;
     }
 };
 #endif
