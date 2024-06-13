@@ -1,7 +1,7 @@
 // Spacecraft.cpp
 
 #include "Spacecraft.h"
-#include "Utility.h"
+#include "../Utility.h"
 #include <GL/glut.h>
 #include <cmath>
 #include <stdio.h>

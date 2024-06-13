@@ -79,11 +79,11 @@ void keyInput(unsigned char key, int x, int y)
       glutPostRedisplay();
       break;
    case 'a':
-      spacecraft.moveLeft(10.0f);
+      spacecraft.turnLeft(10.0f);
       glutPostRedisplay();
       break;
    case 'd':
-      spacecraft.moveRight(10.0f);
+      spacecraft.turnRight(10.0f);
       glutPostRedisplay();
       break;
 

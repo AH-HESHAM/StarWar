@@ -64,7 +64,7 @@ void difficultyHandler(int diff)
 {
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glutDetachMenu(GLUT_LEFT_BUTTON);
-    // ModeUtility::modeDiff = diff;
+    ModeUtility::modeDiff = diff;
     glutDisplayFunc(drawScene);
     std::cout<<"Mode"<<ModeUtility::getMode()<<"Diff"<<ModeUtility::getDifficulty();
 }
