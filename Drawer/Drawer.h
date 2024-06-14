@@ -13,7 +13,6 @@ private:
     std::vector<Enemy> enemies;
 
     Drawer();
-    void generatePeriodicEnemyAction();
     Drawer(const Drawer&) = delete;
     Drawer& operator = (const Drawer&) = delete;
 
@@ -23,7 +22,6 @@ public:
     SolarSystem solarSystem;
     static int periodOfTimedActions;
 
-    void enemyInitialization();
     static Drawer& getInstance();
     static void drawSceneWrapper();
     static void keyboardUpdate(unsigned char key, int x, int y) ;
@@ -33,6 +31,5 @@ public:
     void drawerInitializer();
     vector<Enemy>& getEnemies() { return enemies; }
 
-    void gameTimerGenerator();
 };
 #endif

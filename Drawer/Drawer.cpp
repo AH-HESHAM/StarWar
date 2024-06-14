@@ -51,53 +51,10 @@ void Drawer::moveSpacecraft(unsigned char key){
     glutPostRedisplay();
 }
 
-//void Drawer::enemyInitialization() {
-//    ModeUtility::Difficulty difficulty = ModeUtility::getDifficulty();
-//    int numberOfEnemiesInGame = ModeUtility::numberOfEnemies[difficulty];
-//    float enemyDamageInGame = ModeUtility::enemyDamage[difficulty];
-//    float zLineOfEnemies = -80, angleOfEnemies = 180, betweenTwoEnemiesSpace = 80.0f / ((float)numberOfEnemiesInGame/2.0f);
-//    for (int i = 1; i <= numberOfEnemiesInGame / 2; i++) {
-//        enemies.emplace_back(i * betweenTwoEnemiesSpace, zLineOfEnemies, angleOfEnemies, enemyDamageInGame);
-//    } for (int i = 1; i <= numberOfEnemiesInGame / 2; i++) {
-//        enemies.emplace_back(-i * betweenTwoEnemiesSpace, zLineOfEnemies, angleOfEnemies, enemyDamageInGame);
-//    }
-//}
-//void activeEnemiesCommands() {
-//    // add counter to for loop
-//    int ct = 0;
-//    for (auto &enemy : Drawer::getInstance().getEnemies()) {
-//        enemy.operate(ct);
-//        ct++;
-//    }
-//}
-//
-//void periodicEnemyOperation(int operationNumber) {
-//    activeEnemiesCommands();
-//    glutTimerFunc(Drawer::periodOfTimedActions, periodicEnemyOperation, operationNumber + 1);
-//}
-//
-//void Drawer::generatePeriodicEnemyAction() {
-//    int operationNumber = 0;
-//    glutTimerFunc(Drawer::periodOfTimedActions, periodicEnemyOperation, operationNumber);
-//}
-
 void Drawer::drawerInitializer() {
     cout << "Drawer Initializer" << endl;
     initializer.enemyInitialization();
     cout << "Enemy initialization" << endl;
     initializer.generatePeriodicEnemyAction();
     initializer.timerModeInitializer();
-//
-//    enemyInitialization();
-//    generatePeriodicEnemyAction();
-//    if(ModeUtility::getMode() == ModeUtility::ChoosenMode::TIMER) gameTimerGenerator();
 }
-
-//void endOfTimedGame(int unused) {
-//
-//}
-//void Drawer::gameTimerGenerator() {
-//    ModeUtility::Difficulty difficulty = ModeUtility::getDifficulty();
-//    int timeOfGame = ModeUtility::gameTimer[difficulty];
-//    glutTimerFunc(timeOfGame, endOfTimedGame, 0);
-//}
