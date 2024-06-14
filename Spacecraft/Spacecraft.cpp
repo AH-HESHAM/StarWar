@@ -5,6 +5,8 @@
 #include <GL/glut.h>
 #include <cmath>
 #include <stdio.h>
+#include "../sfx/SoundManager.h"
+#include "../sfx/SoundManager.cpp"
 
 using namespace std;
 
@@ -29,6 +31,7 @@ void Spacecraft::draw() const {
 
 void Spacecraft::turnLeft(float angleIncrement) {
     angle -= angleIncrement;
+
 }
 
 void Spacecraft::turnRight(float angleIncrement) {
@@ -38,9 +41,10 @@ void Spacecraft::turnRight(float angleIncrement) {
 void Spacecraft::moveForward(float distance) {
     x += distance * sin(angle * Utility::PI / 180.0f);
     z -= distance * cos(angle * Utility::PI / 180.0f);
-}
+ }
 
 void Spacecraft::moveBackward(float distance) {
     x -= distance * sin(angle * Utility::PI / 180.0f);
     z += distance * cos(angle * Utility::PI / 180.0f);
-}
+
+ }

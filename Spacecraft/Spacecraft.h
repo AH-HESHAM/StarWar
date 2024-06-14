@@ -19,6 +19,8 @@ public:
     float getX() const { return x; }
     float getZ() const { return z; }
     float getAngle() const { return angle; }
+
+    
 private:
     float x; 
     float z;
