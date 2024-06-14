@@ -10,7 +10,7 @@ using namespace std;
 
 class Game {
 private:
-    Drawer drawer;
+    Drawer &drawer;
 public:
     Game(): drawer(Drawer::getInstance()) {
         cout << "Game constructor" << endl;

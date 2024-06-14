@@ -21,7 +21,9 @@ public:
     float getX() const { return x; }
     float getZ() const { return z; }
     float getAngle() const { return angle; }
-    float isAlive() const { return health > Utility::EPSILON; }
+    bool isAlive() const { return health > Utility::EPSILON; }
+    float getHealth() const { return health; }
+    float getDefaultNumberOfUnits() { return DEFAULT_DISTANCE_TO_MOVE; }
 protected:
     float x; 
     float z;
@@ -29,6 +31,7 @@ protected:
     float size;
     float health;
     const float MAX_HEALTH = 120;
+    const float DEFAULT_DISTANCE_TO_MOVE = 10.0f;
 };
 
 #endif

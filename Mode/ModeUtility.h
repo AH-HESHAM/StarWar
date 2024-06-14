@@ -20,6 +20,7 @@ public:
 
     static std::map<Difficulty, float> enemyDamage;
     static std::map<Difficulty, int> numberOfEnemies;
+    static std::map<Difficulty, int> gameTimer;
 
     static int modeDiff;
     static Difficulty getDifficulty();

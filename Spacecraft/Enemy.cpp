@@ -17,31 +17,61 @@ bool Enemy::checkIfUserIsInSight(float userSpacecraftXComponent, float userSpace
 
     float term1 = (enemySpacecraftZComponent - enemyViewedPointZComponent) * (enemySpacecraftXComponent - userSpacecraftXComponent);
     float term2 = (enemySpacecraftZComponent - userSpacecraftZComponent) * (enemySpacecraftXComponent - enemyViewedPointXComponent);
-
-    if(std::abs(term1 - term2) < Utility::EPSILON) return true;
+     bool inFrontOfEnemy = isInFrontOfEnemy(enemySpacecraftXComponent, enemySpacecraftZComponent,
+                              enemyViewedPointXComponent, enemyViewedPointZComponent,
+                              userSpacecraftXComponent, userSpacecraftZComponent);
+    if(std::abs(term1 - term2) < Utility::EPSILON && inFrontOfEnemy) return true;
     else return false;
 }
 
 float Enemy::RotationAngleToFaceUser(float userSpacecraftXComponent, float userSpacecraftZComponent) {
     float newXOfUser = (-userSpacecraftZComponent) - (-z);
     float newYOfUser = (userSpacecraftXComponent) - (x);
-    double result = acos(fabs(newXOfUser) / sqrt(pow(newXOfUser, 2) + pow(newYOfUser, 2)));
+    float result = acos(fabs(newXOfUser) / sqrt(pow(newXOfUser, 2) + pow(newYOfUser, 2)));
     result = result * 180 / Utility::PI;
     if(newXOfUser < 0 && newYOfUser > 0) result = 180 - result;
     else if(newXOfUser < 0 && newYOfUser < 0) result = 180 + result;
-    else result = 360 - result;
+    else if(newXOfUser > 0 && newYOfUser < 0) result = 360 - result;
     return result - angle;
 }
 
 void Enemy::draw() {
     glPushMatrix();
     glTranslatef(x, 0.0f, z);
-    glRotatef(-angle, 0.0f, 1.0f, 0.0f);
+    glRotatef(-(180 + angle), 0.0f, 1.0f, 0.0f);
     glColor3f(1.0f, 1.0f, 1.0f);
-    cout << "Enemy: " << x << " " << z << " " << angle << endl;
 
     // Draw the wireframe cone
-    glutSolidCone(size / 2, size, 5, 10);
+    glutWireCone(size / 2, size, 5, 10);
 
     glPopMatrix();
 }
+
+void Enemy::operate() {
+    if(!isAlive()) return;
+    float userSpacecraftXComponent = Drawer::getInstance().userSpacecraft.getX();
+    float userSpacecraftZComponent = Drawer::getInstance().userSpacecraft.getZ();
+    if(checkIfUserIsInSight(userSpacecraftXComponent, userSpacecraftZComponent)) {
+        if(state == MOVE_FORWARD) moveForward(getDefaultNumberOfUnits());
+        else { /* projectile to apply. */ }
+        switchState();
+    } else {
+        float angleToRotate = RotationAngleToFaceUser(userSpacecraftXComponent, userSpacecraftZComponent);
+        if(angleToRotate < 0) turnLeft(min(-angleToRotate, getDefaultNumberOfUnits()));
+        else turnRight(min(angleToRotate, getDefaultNumberOfUnits()));
+    }
+}
+
+void Enemy::switchState()  {
+    state = (state == MOVE_FORWARD) ? ROTATE : MOVE_FORWARD;
+}
+
+bool Enemy::isInFrontOfEnemy(float ex, float ez, float vx, float vz, float ux, float uz) {
+    float visionX = vx - ex;
+    float visionZ = vz - ez;
+    float userX = ux - ex;
+    float userZ = uz - ez;
+    float dotProduct = visionX * userX + visionZ * userZ;
+    return dotProduct > 0;
+}
+

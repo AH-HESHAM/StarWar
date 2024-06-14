@@ -57,8 +57,7 @@ void showMenu()
     glutSwapBuffers();
 }
 
-void SelectMode(int mode)
-{
+void SelectMode(int mode) {
 }
 
 void difficultyHandler(int diff)

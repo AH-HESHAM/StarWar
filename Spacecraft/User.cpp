@@ -9,19 +9,19 @@ float User::getDamage() {
 void User::move(unsigned char key) {
     switch (key) {
         case 'w':
-            moveForward(10.0f);
+            moveForward(getDefaultNumberOfUnits());
             std::cout << "Moving forward ('w')" << std::endl;
             break;
         case 's':
-            moveBackward(10.0f);
+            moveBackward(getDefaultNumberOfUnits());
             std::cout << "Moving backward ('s')" << std::endl;
             break;
         case 'a':
-            turnLeft(10.0f);
+            turnLeft(getDefaultNumberOfUnits());
             std::cout << "Turning left ('a')" << std::endl;
             break;
         case 'd':
-            turnRight(10.0f);
+            turnRight(getDefaultNumberOfUnits());
             std::cout << "Turning right ('d')" << std::endl;
             break;
         default:
@@ -40,4 +40,8 @@ void User::draw() {
     glutWireCone(size / 2, size, 5, 10);
 
     glPopMatrix();
+}
+
+void User::increaseScore(float additionalScore) {
+    this->score += additionalScore;
 }

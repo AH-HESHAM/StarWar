@@ -4,28 +4,35 @@
 #include "../Views/Views.h"
 #include "../Spacecraft/User.h"
 #include "../Spacecraft/Enemy.h"
+#include "Drawer/Initializer/Initializer.h"
 
 class Drawer {
 private:
-    Drawer(): views(), userSpacecraft(0.0f, 0, 0.0f), solarSystem() {
-        enemyInitialization();
-    }
-    static Drawer instance;
     Views views;
+    Initializer &initializer;
     std::vector<Enemy> enemies;
+
+    Drawer();
+    void generatePeriodicEnemyAction();
+    Drawer(const Drawer&) = delete;
+    Drawer& operator = (const Drawer&) = delete;
+
 
 public:
     User userSpacecraft;
     SolarSystem solarSystem;
+    static int periodOfTimedActions;
 
     void enemyInitialization();
-    static Drawer getInstance();
+    static Drawer& getInstance();
     static void drawSceneWrapper();
     static void keyboardUpdate(unsigned char key, int x, int y) ;
     void drawScene();
     void gameShow();
     void moveSpacecraft(unsigned char key);
+    void drawerInitializer();
+    vector<Enemy>& getEnemies() { return enemies; }
+
+    void gameTimerGenerator();
 };
-
-
 #endif

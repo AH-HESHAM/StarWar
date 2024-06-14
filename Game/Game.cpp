@@ -6,6 +6,7 @@
 
 
 void Game::startGame() {
+    drawer.drawerInitializer();
     glutDisplayFunc(Drawer::drawSceneWrapper);
     glutKeyboardFunc(Drawer::keyboardUpdate);
 }
