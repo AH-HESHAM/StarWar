@@ -18,6 +18,7 @@ private:
     float red[8] = {241, 165, 0.0, 255.0, 201, 145.0, 13.0, 13.0};
     float green[8] = {184, 46, 0.0, 0.0, 113, 83.0, 156.0, 94.0};
     float blue[8] = {102, 10, 255.0, 0.0, 5.0, 17.0, 213.0, 213.0};
+    std::string planetsName[8] = {"mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"};
     float zTranslate[8];
     int offset = -50;
 
@@ -41,14 +42,15 @@ private:
         int initialAngle = 0;
         for (int j = 7; j >= 0; j--)
         {
+            std::string planetName = planetsName[j];
             auto planet = planets[j];
             planet->setInitAngle(initialAngle += 100);
             planet->setZ(zTranslate[j]);
-            PlanetsAndMoons.push_back(planet->drawBody(sunSpinAngle));
+            PlanetsAndMoons.push_back(planet->drawBody(sunSpinAngle, planetName));
             if (j == 2)
             {
                 moon = new Moon(planets[2]);
-                Object moon_object = moon->drawBody(sunSpinAngle);
+                Object moon_object = moon->drawBody(sunSpinAngle, "moon");
                 PlanetsAndMoons.push_back(moon_object);
             }
         }
@@ -68,7 +70,7 @@ public:
         GLfloat TransformationMatrix[16];
         glPushMatrix();
         glTranslatef(0.0, 0.0, offset);
-        sun->drawBody(0.0);
+        sun->drawBody(0.0, "sun");
         SpaceBodies = drawPlanets(angle);
         glGetFloatv(GL_MODELVIEW_MATRIX, TransformationMatrix);
         glPopMatrix();
