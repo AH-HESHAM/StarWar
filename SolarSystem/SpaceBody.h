@@ -5,18 +5,18 @@
 class SpaceBody
 {
 protected:
-    float x = 0.0, y = 0.0, z = 0.0, redius, initAngle = 0.0, red, green, blue;
+    float x = 0.0, y = 0.0, z = 0.0, radius, initAngle = 0.0, red, green, blue;
 
 public:
-    SpaceBody(int redius, float red, float green, float blue)
+    SpaceBody(int radius, float red, float green, float blue)
     {
-        this->redius = redius;
+        this->radius = radius;
         this->red = red;
         this->green = green;
         this->blue = blue;
     }
 
-    virtual void drawBody(float aroundFollowerAngle) = 0;
+    virtual Object drawBody(float aroundFollowerAngle) = 0;
 
     void setX(float x)
     {
@@ -57,9 +57,9 @@ public:
     {
         return initAngle;
     }
-    float getReduis()
+    float getRadius()
     {
-        return redius;
+        return radius;
     }
 };
 #endif

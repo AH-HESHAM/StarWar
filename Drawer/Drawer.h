@@ -1,7 +1,7 @@
 
 #ifndef STARWAR_DRAWER_H
 #define STARWAR_DRAWER_H
-#include "Views/Views.h"
+#include "../Views/Views.h"
 
 class Drawer {
 private:
@@ -17,7 +17,7 @@ public:
     static void drawSceneWrapper();
     static void keyboardUpdate(unsigned char key, int x, int y) ;
     void drawScene();
-    void gameShow();
+    void gameShow(bool isSpacecraftView);
     void moveSpacecraft(unsigned char key);
 };
 
