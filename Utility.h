@@ -1,6 +1,6 @@
 #ifndef STARWAR_UTILITY_H
 #define STARWAR_UTILITY_H
-
+#include <string>
 
 class Utility {
 public:
@@ -11,6 +11,8 @@ public:
     static const double frustumZNear;
     static const double frustumZFar;
     static const double PI;
+    static Object TransformPoint(float radius, const float TransformationMatrix[], const std::string& type);
+
 };
 
 

@@ -1,10 +1,10 @@
 // Spacecraft.cpp
-
-#include "Spacecraft.h"
-#include "../Utility.h"
 #include <GL/glut.h>
 #include <cmath>
-#include <stdio.h>
+#include <iostream>
+#include "Spacecraft.h"
+#include "../CollisionDetector/Object.h"
+#include "../Utility.h"
 
 using namespace std;
 
@@ -15,16 +15,15 @@ Spacecraft::Spacecraft(float initialX, float initialZ, float initialAngle)
     angle = 0.0f;
 }
 
-void Spacecraft::draw() const {
+Object Spacecraft::draw() const {
     glPushMatrix();
     glTranslatef(x, 0.0f, z);
     glRotatef(-(180 + angle), 0.0f, 1.0f, 0.0f);
     glColor3f(1.0f, 1.0f, 1.0f); // Set color to white for the spacecraft
-
     // Draw the wireframe cone
     glutWireCone(size / 2, size, 5, 10);
-
     glPopMatrix();
+    return Object(0.0, 0.0f, -3.5, size/1.7, "spacecraft");
 }
 
 void Spacecraft::turnLeft(float angleIncrement) {

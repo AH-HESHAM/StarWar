@@ -4,9 +4,9 @@
 #include <iostream>
 using namespace std;
 
-#include "Drawer/Drawer.h"
-#include "SolarSystem/SolarSystem.h"
-#include "Spacecraft/Spacecraft.h"
+#include "../Drawer/Drawer.h"
+#include "../SolarSystem/SolarSystem.h"
+#include "../Spacecraft/Spacecraft.h"
 
 class Game {
 private:

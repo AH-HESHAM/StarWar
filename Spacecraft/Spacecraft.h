@@ -6,7 +6,7 @@
 class Spacecraft {
 public:
     Spacecraft(float initialX, float initialZ, float initialAngle);
-    void draw() const;
+    Object draw() const;
     void turnLeft(float angleIncrement);
     void turnRight(float angleIncrement);
 
