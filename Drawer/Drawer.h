@@ -8,18 +8,18 @@ private:
     Drawer(): views(), spacecraft(0.0f, 0, 0.0f), solarSystem() {}
     static Drawer instance;
     Views views;
-    vector<Projectile> projectiles;
+    double lastRenderTime = Utility::getCurrentTime();
+
 public:
     Spacecraft spacecraft;
     SolarSystem solarSystem;
-
     static Drawer getInstance();
     static void drawSceneWrapper();
     static void keyboardUpdate(unsigned char key, int x, int y) ;
     void drawScene();
     void gameShow(bool isSpacecraftView);
     void moveSpacecraft(unsigned char key);
-    void addProjectile(Projectile projectile) { projectiles.push_back(projectile);}
+    void updateProjectiles(float deltaTime);
 };
 
 

@@ -3,6 +3,7 @@
 #include "../Views/Views.h"
 #include "../CollisionDetector/CollisionDetector.cpp"
 #include "../Projectile/Projectile.h"
+#include "../Utility.h"
 #include <iostream>
 
 using namespace std;
@@ -29,8 +30,17 @@ void Drawer::drawScene() {
 void Drawer::gameShow(bool isSpacecraftView) {
     glColor3f(0.0, 0.0, 0.0);
     vector<Object>bodies = solarSystem.drawSolarSystem(sunSpinAngle);
-    for(const auto& obj: spacecraft.draw()) {
-        bodies.push_back(obj);
+    bodies.push_back(spacecraft.draw());
+    double deltaTime = Utility::getCurrentTime() - lastRenderTime;
+    lastRenderTime = Utility::getCurrentTime();
+    updateProjectiles(deltaTime);
+    for(auto it = Utility::projectiles.begin(); it != Utility::projectiles.end(); /* no increment here */) {
+        if(it->getLifetime() < 0.0f) {
+            it = Utility::projectiles.erase(it);
+        } else {
+            bodies.push_back(it->render(spacecraft.getX(), spacecraft.getZ(), spacecraft.getAngle()));
+            ++it;
+        }
     }
     if(isSpacecraftView) {
         DetectCollision(bodies);
@@ -44,4 +54,10 @@ Drawer Drawer::getInstance() {
 void Drawer::moveSpacecraft(unsigned char key){
     spacecraft.move(key);
     glutPostRedisplay();
+}
+
+void Drawer::updateProjectiles(float deltaTime) {
+    for (auto& projectile : Utility::projectiles) {
+        projectile.update(deltaTime);
+    }
 }
