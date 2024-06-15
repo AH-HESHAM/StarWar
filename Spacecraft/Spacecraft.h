@@ -24,14 +24,19 @@ public:
     bool isAlive() const { return health > Utility::EPSILON; }
     float getHealth() const { return health; }
     float getDefaultNumberOfUnits() { return DEFAULT_DISTANCE_TO_MOVE; }
+    float getMaxHealth() { return MAX_HEALTH; }
 protected:
-    float x; 
+    float initialX;
+    float initialZ;
+    float initialAngle;
+    float x;
     float z;
     float angle;
     float size;
     float health;
     const float MAX_HEALTH = 120;
     const float DEFAULT_DISTANCE_TO_MOVE = 10.0f;
+    int respawnCounter = 0;
 };
 
 #endif

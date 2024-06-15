@@ -45,3 +45,19 @@ void User::draw() {
 void User::increaseScore(float additionalScore) {
     this->score += additionalScore;
 }
+
+pair<bool, float> User::decreaseHealth() {
+    health -= damage;
+    if(isAlive()) return {true, health};
+
+    if(ModeUtility::getMode() == ModeUtility::ChoosenMode::TIMER) respawn();
+    return {false, health};
+}
+
+void User::respawn() {
+    health = getMaxHealth();
+    x = initialX;
+    z = initialZ;
+    angle = initialAngle;
+    numberOfRespawns++;
+}

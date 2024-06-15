@@ -11,6 +11,7 @@ private:
     Views views;
     Initializer &initializer;
     std::vector<Enemy> enemies;
+    std::function<void(float, float)> endGame;
 
     Drawer();
     Drawer(const Drawer&) = delete;
@@ -28,8 +29,8 @@ public:
     void drawScene();
     void gameShow();
     void moveSpacecraft(unsigned char key);
-    void drawerInitializer();
+    void drawerInitializer(const std::function<void(float, float)> &endGameCallback);
     vector<Enemy>& getEnemies() { return enemies; }
-
+    void endOfGame();
 };
 #endif

@@ -8,6 +8,8 @@ private:
     float damage;
     enum State {MOVE_FORWARD, ROTATE};
     State state = MOVE_FORWARD;
+    int respawnTicks = 10;
+
     void switchState();
 public:
 
@@ -18,10 +20,12 @@ public:
     float RotationAngleToFaceUser(float userSpacecraftXComponent, float userSpacecraftZComponent);
     void draw();
     float increaseHealth() { return health += damage; }
-    float decreaseHealth() { return health -= damage; }
+    float decreaseHealth();
     void operate();
 
     bool isInFrontOfEnemy(float ex, float ez, float vx, float vz, float ux, float uz);
+
+    void respawn();
 };
 
 

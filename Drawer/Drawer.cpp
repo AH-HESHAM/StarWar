@@ -15,6 +15,18 @@ int Drawer::periodOfTimedActions = 1000;
 
 Drawer::Drawer(): initializer(Initializer::getInstance()), views(), userSpacecraft(0.0f, 0, 0.0f), solarSystem() {}
 
+Drawer& Drawer::getInstance() {
+    static Drawer instance;
+    return instance;
+}
+
+void Drawer::drawerInitializer(const std::function<void(float, float)> &endGameCallback) {
+    endGame = endGameCallback;
+    initializer.enemyInitialization();
+    initializer.generatePeriodicEnemyAction();
+    initializer.timerModeInitializer();
+}
+
 void Drawer::drawSceneWrapper() {
     Drawer::getInstance().drawScene();
 }
@@ -41,20 +53,17 @@ void Drawer::gameShow() {
     }
 }
 
-Drawer& Drawer::getInstance() {
-    static Drawer instance;
-    return instance;
-}
-
 void Drawer::moveSpacecraft(unsigned char key){
     userSpacecraft.move(key);
     glutPostRedisplay();
 }
 
-void Drawer::drawerInitializer() {
-    cout << "Drawer Initializer" << endl;
-    initializer.enemyInitialization();
-    cout << "Enemy initialization" << endl;
-    initializer.generatePeriodicEnemyAction();
-    initializer.timerModeInitializer();
+// in case of timer mode: a call from Initializer::endOfTimedGame()
+// in case of survival mode:
+//      decrease health has return pair if timer mode visual effect is applied then respawn ***
+//      else if survival mode is over: a call to our function
+void Drawer::endOfGame() {
+    endGame(userSpacecraft.getScore(), userSpacecraft.getNumberOfRespawns());
 }
+
+

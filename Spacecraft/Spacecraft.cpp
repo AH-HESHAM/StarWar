@@ -10,9 +10,9 @@ using namespace std;
 
 Spacecraft::Spacecraft(float initialX, float initialZ, float initialAngle)
     : x(initialX), z(initialZ), angle(initialAngle), size(10.0f) {
-    x = initialX;
-    z = initialZ;
-    angle = initialAngle;
+    x = this->initialX = initialX;
+    z = this->initialZ = initialZ;
+    angle = this->initialAngle = initialAngle;
     health = MAX_HEALTH;
 }
 

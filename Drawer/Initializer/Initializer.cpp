@@ -35,6 +35,7 @@ void activeEnemiesCommands() {
 }
 
 void periodicEnemyOperation(int operationNumber) {
+    if(!(Game::isGameRunning())) return;
     activeEnemiesCommands();
     glutTimerFunc(Drawer::periodOfTimedActions, periodicEnemyOperation, operationNumber + 1);
 }
@@ -44,7 +45,7 @@ void Initializer::timerModeInitializer() {
 }
 
 void endOfTimedGame(int unused) {
-
+    Drawer::getInstance().endOfGame();
 }
 
 void gameTimerGenerator() {

@@ -11,12 +11,20 @@ using namespace std;
 class Game {
 private:
     Drawer &drawer;
+    static vector<string> endGameText;
 public:
     Game(): drawer(Drawer::getInstance()) {
         cout << "Game constructor" << endl;
     }
     void startGame();
-    void endGame();
+    void endGame(float score, float spawns);
+
+    static bool gameIsRunning;
+    static bool isGameRunning();
+    static vector<std::string> & getEndGameText();
+
+    static void drawEndGameScreen();
+
 };
 
 

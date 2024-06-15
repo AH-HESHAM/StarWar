@@ -4,6 +4,7 @@
 #include <cmath>
 
 
+
 float Enemy::getDamage() {
     return damage;
 }
@@ -48,17 +49,21 @@ void Enemy::draw() {
 }
 
 void Enemy::operate() {
-    if(!isAlive()) return;
-    float userSpacecraftXComponent = Drawer::getInstance().userSpacecraft.getX();
-    float userSpacecraftZComponent = Drawer::getInstance().userSpacecraft.getZ();
-    if(checkIfUserIsInSight(userSpacecraftXComponent, userSpacecraftZComponent)) {
-        if(state == MOVE_FORWARD) moveForward(getDefaultNumberOfUnits());
-        else { /* projectile to apply. */ }
-        switchState();
+    if(!isAlive()) {
+        respawnCounter++;
+        if(respawnCounter == respawnTicks) respawn(), respawnCounter = 0;
     } else {
-        float angleToRotate = RotationAngleToFaceUser(userSpacecraftXComponent, userSpacecraftZComponent);
-        if(angleToRotate < 0) turnLeft(min(-angleToRotate, getDefaultNumberOfUnits()));
-        else turnRight(min(angleToRotate, getDefaultNumberOfUnits()));
+        float userSpacecraftXComponent = Drawer::getInstance().userSpacecraft.getX();
+        float userSpacecraftZComponent = Drawer::getInstance().userSpacecraft.getZ();
+        if(checkIfUserIsInSight(userSpacecraftXComponent, userSpacecraftZComponent)) {
+            if(state == MOVE_FORWARD) moveForward(getDefaultNumberOfUnits());
+            else { /* projectile to apply. */ }
+            switchState();
+        } else {
+            float angleToRotate = RotationAngleToFaceUser(userSpacecraftXComponent, userSpacecraftZComponent);
+            if(angleToRotate < 0) turnLeft(min(-angleToRotate, getDefaultNumberOfUnits()));
+            else turnRight(min(angleToRotate, getDefaultNumberOfUnits()));
+        }
     }
 }
 
@@ -73,5 +78,17 @@ bool Enemy::isInFrontOfEnemy(float ex, float ez, float vx, float vz, float ux, f
     float userZ = uz - ez;
     float dotProduct = visionX * userX + visionZ * userZ;
     return dotProduct > 0;
+}
+
+float Enemy::decreaseHealth() {
+    health -= damage;
+    return health;
+}
+
+void Enemy::respawn() {
+    health = getMaxHealth();
+    x = initialX;
+    z = initialZ;
+    angle = initialAngle;
 }
 
