@@ -11,6 +11,7 @@
 #include "../CollisionDetector/CollisionDetector.cpp"
 #include "./Initializer/Initializer.cpp"
 #include "./Timer/Timer.cpp"
+#include "../Items/Item.h"
 
 using namespace std;
 
@@ -83,9 +84,11 @@ void Drawer::gameShow(bool isSpacecraftView) {
         for(int i = index ; i < bodies.size() ; i++){
             bodies[i].setIndex(i-index);
         }
+        drawAllObjects(0);
         if(isSpacecraftView) {
             collisionDetector.DetectCollision(bodies);
         }
+
     }
     else{
         endOfGame();

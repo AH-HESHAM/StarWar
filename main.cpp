@@ -4,6 +4,7 @@
 #include "SolarSystem/SolarSystem.h"
 #include "Views/Views.cpp"
 #include "Menu/Menu.h"
+#include "Items/Item.h"
 
 void animate(int value);
 void resize(int w, int h);
@@ -63,6 +64,9 @@ void setup(void)
    glCullFace(GL_BACK);
    glEnable(GL_COLOR_MATERIAL);
    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+    initializeObjects();
+    glutTimerFunc(0, updateObjectPositions, 0);
+
 }
 
 int main(int argc, char **argv)
