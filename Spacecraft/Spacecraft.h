@@ -40,7 +40,7 @@ public:
     float getDefaultNumberOfUnits() { return DEFAULT_DISTANCE_TO_MOVE; }
     static float getMinDistanceBetweenTwoSC();
     static float getMaxHealth() { return MAX_HEALTH; }
-    void shoot();
+    void shoot(float projectileDamage, float timeBetweenShots);
 };
 
 #endif

@@ -18,7 +18,7 @@ public:
     float getDamage();
     bool checkIfUserIsInSight(float userSpacecraftXComponent, float userSpacecraftZComponent);
     float RotationAngleToFaceUser(float userSpacecraftXComponent, float userSpacecraftZComponent);
-    void draw();
+    Object draw();
     float increaseHealth() { return health += damage; }
     float decreaseHealth();
     void operate();

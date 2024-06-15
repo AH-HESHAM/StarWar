@@ -12,7 +12,7 @@ public:
     User(float initialX, float initialZ, float initialAngle) : Spacecraft(initialX, initialZ, initialAngle) {};
     float getDamage();
     void move(unsigned char key);
-    void draw();
+    Object draw();
     float getScore() { return score; }
     float getNumberOfRespawns() { return numberOfRespawns; }
     void increaseScore(float score);

@@ -58,26 +58,25 @@ void Drawer::drawScene() {
 
 void Drawer::gameShow(bool isSpacecraftView) {
     glColor3f(0.0, 0.0, 0.0);
-    vector<Object>bodies = solarSystem.drawSolarSystem(sunSpinAngle);
+    vector<Object> bodies = solarSystem.drawSolarSystem(sunSpinAngle);
     bodies.push_back(userSpacecraft.draw());
     double deltaTime = Utility::getCurrentTime() - lastRenderTime;
     lastRenderTime = Utility::getCurrentTime();
     updateProjectiles(deltaTime);
-    for(auto it = Utility::projectiles.begin(); it != Utility::projectiles.end(); /* no increment here */) {
-        if(it->getLifetime() < 0.0f) {
+    for (auto it = Utility::projectiles.begin(); it != Utility::projectiles.end(); /* no increment here */) {
+        if (it->getLifetime() < 0.0f) {
             it = Utility::projectiles.erase(it);
         } else {
-            bodies.push_back(it->render(spacecraft.getX(), spacecraft.getZ(), spacecraft.getAngle()));
+            bodies.push_back(it->render(userSpacecraft.getX(), userSpacecraft.getZ(), userSpacecraft.getAngle()));
             ++it;
         }
     }
-    if(isSpacecraftView) {
+    if (isSpacecraftView) {
         DetectCollision(bodies);
     }
-}
 
-    for (auto &enemy : enemies) {
-        if(enemy.isAlive()) enemy.draw();
+    for (auto &enemy: enemies) {
+        if (enemy.isAlive()) enemy.draw();
     }
 }
 

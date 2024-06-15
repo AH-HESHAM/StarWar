@@ -24,13 +24,16 @@ void User::move(unsigned char key) {
             turnRight(getDefaultNumberOfUnits());
             std::cout << "Turning right ('d')" << std::endl;
             break;
+        case ' ':
+            shoot(getDamage(), 0.5f);
+            std::cout << "Shooting (' ')" << std::endl;
+            break;
         default:
             // Handle unrecognized keys if needed
             break;
     }
 }
-
-void User::draw() {
+Object User::draw() {
     glPushMatrix();
     glTranslatef(x, 0.0f, z);
     glRotatef(-(180 + angle), 0.0f, 1.0f, 0.0f);
@@ -40,6 +43,7 @@ void User::draw() {
     glutWireCone(size / 2, size, 5, 10);
 
     glPopMatrix();
+    return Object(0.0, 0.0f, -3.5, size/1.7, "spacecraft");
 }
 
 void User::increaseScore(float additionalScore) {

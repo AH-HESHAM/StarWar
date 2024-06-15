@@ -36,7 +36,7 @@ float Enemy::RotationAngleToFaceUser(float userSpacecraftXComponent, float userS
     return result - angle;
 }
 
-void Enemy::draw() {
+Object Enemy::draw() {
     glPushMatrix();
     glTranslatef(x, 0.0f, z);
     glRotatef(-(180 + angle), 0.0f, 1.0f, 0.0f);
@@ -46,6 +46,7 @@ void Enemy::draw() {
     glutWireCone(size / 2, size, 5, 10);
 
     glPopMatrix();
+    return Object(x, 0.0, z, size/1.7, "enemy");
 }
 
 void Enemy::operate() {
@@ -57,7 +58,9 @@ void Enemy::operate() {
         float userSpacecraftZComponent = Drawer::getInstance().userSpacecraft.getZ();
         if(checkIfUserIsInSight(userSpacecraftXComponent, userSpacecraftZComponent)) {
             if(state == MOVE_FORWARD && distanceBetweenEnemyAndUser() > Spacecraft::getMinDistanceBetweenTwoSC()) moveForward(getDefaultNumberOfUnits());
-            else { /* projectile to apply. */ }
+            else {
+                shoot(damage, 4.0f);
+            }
             switchState();
         } else {
             float angleToRotate = RotationAngleToFaceUser(userSpacecraftXComponent, userSpacecraftZComponent);
