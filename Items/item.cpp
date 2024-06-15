@@ -88,7 +88,6 @@ void initializeObjects() {
         float x = static_cast<float>(rand() % 1001 - 500);
         float z = static_cast<float>(rand() % 1001 - 500);
         objects.emplace_back(x, z, true);
-        std::cout << "Red arrow initialized at: (" << x << ", 0, " << z << ")" << std::endl;
     }
 
     // Initialize plus signs
@@ -96,7 +95,6 @@ void initializeObjects() {
         float x = static_cast<float>(rand() % 100 - 50);
         float z = static_cast<float>(rand() % 250 - 150);
         objects.emplace_back(x, z, false);
-        std::cout << "Plus sign initialized at: (" << x << ", 0, " << z << ")" << std::endl;
     }
 }
 

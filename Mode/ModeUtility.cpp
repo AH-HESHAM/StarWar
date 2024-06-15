@@ -16,9 +16,9 @@ std::map<ModeUtility::Difficulty, int> ModeUtility::numberOfEnemies = {
 };
 
 std::map<ModeUtility::Difficulty, int> ModeUtility::gameTimer = {
-        {ModeUtility::EASY, 3000 * 60},
-        {ModeUtility::MEDIUM, 5000 * 60},
-        {ModeUtility::HARD, 10000 * 60}
+        {ModeUtility::EASY, 1000 * 60},
+        {ModeUtility::MEDIUM, 3000 * 60},
+        {ModeUtility::HARD, 5000 * 60}
 };
 
 ModeUtility::ChoosenMode ModeUtility::getMode()

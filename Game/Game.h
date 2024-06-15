@@ -12,7 +12,11 @@ class Game {
 private:
     Drawer &drawer;
     static vector<string> endGameText;
+
 public:
+    static int score;
+    static int spawns;
+
     Game(): drawer(Drawer::getInstance()) {
         cout << "Game constructor" << endl;
     }
@@ -25,6 +29,9 @@ public:
 
     static void drawEndGameScreen();
 
+    void fireTheGameEndEvent();
+
+    static void nextView(int score, int spawns);
 };
 
 
