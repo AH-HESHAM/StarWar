@@ -4,9 +4,9 @@
 int ModeUtility::modeDiff = 0;
 
 std::map<ModeUtility::Difficulty, float> ModeUtility::enemyDamage = {
-        {ModeUtility::EASY, 20.0f},
-        {ModeUtility::MEDIUM, 30.0f},
-        {ModeUtility::HARD, 40.0f}
+        {ModeUtility::EASY, 5.0f},
+        {ModeUtility::MEDIUM, 10.0f},
+        {ModeUtility::HARD, 15.0f}
 };
 
 std::map<ModeUtility::Difficulty, int> ModeUtility::numberOfEnemies = {

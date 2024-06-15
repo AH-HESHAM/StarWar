@@ -7,6 +7,7 @@ const double Utility::frustumZNear = 5.0;
 const double Utility::frustumZFar = 100.0;
 const double Utility::PI = 3.14159265359;
 const double Utility::EPSILON = 1e-3;
+
 std::vector<Projectile>Utility::projectiles;
 
 Object Utility::TransformPoint(float x, float y, float z, float radius, const float TransformationMatrix[], const string& type) {

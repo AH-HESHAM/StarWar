@@ -2,6 +2,7 @@
 #ifndef STARWAR_DRAWER_H
 #define STARWAR_DRAWER_H
 
+#include "../CollisionDetector/CollisionDetector.h"
 #include "../Views/Views.h"
 #include "../Spacecraft/User.h"
 #include "../Spacecraft/Enemy.h"
@@ -27,6 +28,8 @@ private:
 public:
     User userSpacecraft;
     SolarSystem solarSystem;
+    CollisionDetector collisionDetector;
+
     static int periodOfTimedActions;
 
     static Drawer &getInstance();

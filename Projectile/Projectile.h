@@ -10,6 +10,7 @@ private:
     float speed;
     float damage;
     float lifetime;
+    bool userProjectile;
 
 public:
     Projectile(glm::vec3 initPosition, glm::vec3 initDirection, float initSpeed, float damage);
@@ -18,9 +19,11 @@ public:
     float getX() const {return position.x;};
     float getZ() const {return position.z;};
     float getLifetime() const {return lifetime;};
+    void  deleteProjectile(){lifetime = -1.0;};
     static float getRadius() {return 0.5f;};
     void update(float deltaTime);
     Object render(float x, float z, float angle) const;
+
 };
 
 #endif // PROJECTILE_H

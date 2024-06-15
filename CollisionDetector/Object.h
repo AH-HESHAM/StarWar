@@ -1,7 +1,3 @@
-//
-// Created by madyelzainy on 6/14/2024.
-//
-
 #ifndef STARWAR_OBJECT_H
 #define STARWAR_OBJECT_H
 #include <string>
@@ -19,8 +15,8 @@ public:
     float getZ() const { return z; }
     float getRadius() const { return radius; }
     std::string getType() const { return type; }
-    int getProjectileIndex() const { return projectile_index; }
-    void setProjectileIndex(int index) { projectile_index = index; }
+    int getIndex() const { return index; }
+    void setIndex(int newIndex) { index = newIndex; }
 
 
 private:
@@ -28,7 +24,7 @@ private:
     float y;
     float z;
     float radius;
-    int projectile_index;
+    int index;
     std::string type;
 };
 

@@ -50,11 +50,14 @@ void User::increaseScore(float additionalScore) {
     this->score += additionalScore;
 }
 
-pair<bool, float> User::decreaseHealth() {
-    health -= damage;
+pair<bool, float> User::decreaseHealth(float inflictedDamage) {
+    health -= inflictedDamage;
+    health = max((float)0.0, (float)health);
     if(isAlive()) return {true, health};
 
-    if(ModeUtility::isTimerMode()) respawn();
+    if(ModeUtility::isTimerMode()){
+        respawn();
+    }
     return {false, health};
 }
 
@@ -64,4 +67,5 @@ void User::respawn() {
     z = initialZ;
     angle = initialAngle;
     numberOfRespawns++;
+    this->score = max((float)0.0, (float)(this->score-2.0));
 }

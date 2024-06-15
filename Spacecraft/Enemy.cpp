@@ -36,7 +36,10 @@ float Enemy::RotationAngleToFaceUser(float userSpacecraftXComponent, float userS
     return result - angle;
 }
 
-Object Enemy::draw() {
+Object Enemy::draw(float userSpacecraftX, float userSpacecraftZ, float userSpacecraftAngle) {
+    float cosAngle = cos(userSpacecraftAngle*Utility::PI/180.0f);
+    float sinAngle = sin(userSpacecraftAngle*Utility::PI/180.0f);
+
     glPushMatrix();
     glTranslatef(x, 0.0f, z);
     glRotatef(-(180 + angle), 0.0f, 1.0f, 0.0f);
@@ -46,7 +49,9 @@ Object Enemy::draw() {
     glutWireCone(size / 2, size, 5, 10);
 
     glPopMatrix();
-    return Object(x, 0.0, z, size/1.7, "enemy");
+    float reversedX = cosAngle * (x - userSpacecraftX) + sinAngle * (z - userSpacecraftZ);
+    float reversedZ = -sinAngle * (x - userSpacecraftX) + cosAngle * (z - userSpacecraftZ);
+    return Object(reversedX, 0.0, reversedZ, size/1.7, "enemy");
 }
 
 void Enemy::operate() {
@@ -83,10 +88,11 @@ bool Enemy::isInFrontOfEnemy(float ex, float ez, float vx, float vz, float ux, f
     return dotProduct > 0;
 }
 
-float Enemy::decreaseHealth() {
-    health -= damage;
+float Enemy::decreaseHealth(float inflictedDamage) {
+    health -= inflictedDamage;
     return health;
 }
+
 
 void Enemy::respawn() {
     health = getMaxHealth();

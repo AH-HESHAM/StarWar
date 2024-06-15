@@ -6,15 +6,10 @@
 #include <sstream>
 #include <iomanip>
 #include "Drawer.h"
-#include "../Views/Views.h"
-#include "../Projectile/Projectile.h"
-#include "../Utility.h"
-#include "./Initializer/Initializer.h"
-#include "./Timer/Timer.h"
 #include "../Spacecraft/User.cpp"
 #include "../Spacecraft/Enemy.cpp"
-#include "./Initializer/Initializer.cpp"
 #include "../CollisionDetector/CollisionDetector.cpp"
+#include "./Initializer/Initializer.cpp"
 #include "./Timer/Timer.cpp"
 
 using namespace std;
@@ -24,7 +19,7 @@ int Drawer::periodOfTimedActions = 1000;
 Drawer::Drawer():
     initializer(Initializer::getInstance()),
     views(), userSpacecraft(0.0f, 0, 0.0f),
-    solarSystem(), timer() {}
+    solarSystem(), timer(), collisionDetector() {}
 
 Drawer& Drawer::getInstance() {
     static Drawer instance;
@@ -58,25 +53,42 @@ void Drawer::drawScene() {
 
 void Drawer::gameShow(bool isSpacecraftView) {
     glColor3f(0.0, 0.0, 0.0);
-    vector<Object> bodies = solarSystem.drawSolarSystem(sunSpinAngle);
-    bodies.push_back(userSpacecraft.draw());
-    double deltaTime = Utility::getCurrentTime() - lastRenderTime;
-    lastRenderTime = Utility::getCurrentTime();
-    updateProjectiles(deltaTime);
-    for (auto it = Utility::projectiles.begin(); it != Utility::projectiles.end(); /* no increment here */) {
-        if (it->getLifetime() < 0.0f) {
-            it = Utility::projectiles.erase(it);
-        } else {
-            bodies.push_back(it->render(userSpacecraft.getX(), userSpacecraft.getZ(), userSpacecraft.getAngle()));
-            ++it;
+    vector<Object>bodies;
+    if(userSpacecraft.isAlive()) {
+        bodies.push_back(userSpacecraft.draw());
+        for (const auto &planet: solarSystem.drawSolarSystem(sunSpinAngle)) {
+            bodies.push_back(planet);
+        }
+        double deltaTime = Utility::getCurrentTime() - lastRenderTime;
+        lastRenderTime = Utility::getCurrentTime();
+        updateProjectiles(deltaTime);
+        int index  = (int)bodies.size();
+        for (auto it = Utility::projectiles.begin(); it != Utility::projectiles.end(); /* no increment here */) {
+            if (it->getLifetime() < 0.0f) {
+                it = Utility::projectiles.erase(it);
+            } else {
+                bodies.push_back(it->render(userSpacecraft.getX(), userSpacecraft.getZ(), userSpacecraft.getAngle()));
+                ++it;
+            }
+        }
+        for(int i = index ; i < bodies.size() ; i++){
+            bodies[i].setIndex(i-index);
+        }
+        index = (int)bodies.size();
+        for (auto &enemy: enemies) {
+            if (enemy.isAlive()) {
+                bodies.push_back(enemy.draw(userSpacecraft.getX(), userSpacecraft.getZ(), userSpacecraft.getAngle()));
+            }
+        }
+        for(int i = index ; i < bodies.size() ; i++){
+            bodies[i].setIndex(i-index);
+        }
+        if(isSpacecraftView) {
+            collisionDetector.DetectCollision(bodies);
         }
     }
-    if (isSpacecraftView) {
-        DetectCollision(bodies);
-    }
-
-    for (auto &enemy: enemies) {
-        if (enemy.isAlive()) enemy.draw();
+    else{
+        endOfGame();
     }
 }
 
@@ -108,13 +120,9 @@ void Drawer::drawScoreboard() {
     glPushMatrix();
     glLoadIdentity();
     glDisable(GL_LIGHTING);
-
-
     healthBarHandler();
     if (ModeUtility::isTimerMode()) timerShowHandler();
     killsShowHandler();
-
-
     // Restore previous projection and model view matrices
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
