@@ -3,6 +3,8 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include "SpaceBody.h"
+#include "../CollisionDetector/Object.h"
+#include "../Utility.h"
 
 class Moon : public SpaceBody
 {
@@ -12,7 +14,7 @@ private:
     void initMoon()
     {
         setInitAngle(followed->getInitAngle());
-        setX(followed->getX() + followed->getReduis() + 2);
+        setX(followed->getX() + followed->getRadius() + 2);
         setY(followed->getY());
         setZ(followed->getZ());
     }
@@ -24,17 +26,21 @@ public:
         initMoon();
     }
 
-    void drawBody(float aroundFollowerAngle)
+    Object drawBody(float aroundFollowerAngle)
     {
         glColor3f(red, green, blue);
+        GLfloat TransformationMatrix[16];
         glPushMatrix();
         glRotatef(aroundFollowerAngle + initAngle, 0, 1, 0);
         glTranslatef(-followed->getX(), 0, 0);
         glRotatef(aroundFollowerAngle * 5, 0, 0, 1);
         glTranslatef(followed->getX(), 0, 0);
         glTranslatef(x, y, -z);
-        glutSolidSphere(redius, 50, 50);
+        glutSolidSphere(radius, 50, 50);
+        glGetFloatv(GL_MODELVIEW_MATRIX, TransformationMatrix);
         glPopMatrix();
+        return Utility::TransformPoint(0.0, 0.0, 0.0, radius, TransformationMatrix, "moon");
+
     }
 };
 

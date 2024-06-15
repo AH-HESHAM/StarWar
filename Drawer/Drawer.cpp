@@ -1,19 +1,20 @@
-#include "Drawer.h"
-#include "../Views/Views.h"
 #include <GL/freeglut.h>
 #include <GL/glut.h>
-#include <GL/freeglut.h>
 #include <iostream>
 #include <ostream>
 #include <vector>
 #include <sstream>
 #include <iomanip>
-
+#include "Drawer.h"
+#include "../Views/Views.h"
+#include "../Projectile/Projectile.h"
+#include "../Utility.h"
+#include "./Initializer/Initializer.h"
+#include "./Timer/Timer.h"
 #include "../Spacecraft/User.cpp"
 #include "../Spacecraft/Enemy.cpp"
-#include "./Initializer/Initializer.h"
 #include "./Initializer/Initializer.cpp"
-#include "./Timer/Timer.h"
+#include "../CollisionDetector/CollisionDetector.cpp"
 #include "./Timer/Timer.cpp"
 
 using namespace std;
@@ -49,16 +50,31 @@ void Drawer::keyboardUpdate(unsigned char key, int x, int y) {
 void Drawer::drawScene() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLineWidth(2.0);
-    this->views.spaceCraftView([this] { gameShow(); }, userSpacecraft);
+    this->views.spaceCraftView([this](bool isSpaceCraftView) { gameShow(isSpaceCraftView); }, userSpacecraft);
     drawScoreboard();
-    this->views.topView([this] { gameShow(); });
+    this->views.topView([this](bool isSpaceCraftView) { gameShow(isSpaceCraftView); });
     glutSwapBuffers();
 }
 
-void Drawer::gameShow() {
+void Drawer::gameShow(bool isSpacecraftView) {
     glColor3f(0.0, 0.0, 0.0);
-    solarSystem.drawSolarSystem(sunSpinAngle);
-    userSpacecraft.draw();
+    vector<Object>bodies = solarSystem.drawSolarSystem(sunSpinAngle);
+    bodies.push_back(userSpacecraft.draw());
+    double deltaTime = Utility::getCurrentTime() - lastRenderTime;
+    lastRenderTime = Utility::getCurrentTime();
+    updateProjectiles(deltaTime);
+    for(auto it = Utility::projectiles.begin(); it != Utility::projectiles.end(); /* no increment here */) {
+        if(it->getLifetime() < 0.0f) {
+            it = Utility::projectiles.erase(it);
+        } else {
+            bodies.push_back(it->render(spacecraft.getX(), spacecraft.getZ(), spacecraft.getAngle()));
+            ++it;
+        }
+    }
+    if(isSpacecraftView) {
+        DetectCollision(bodies);
+    }
+}
 
     for (auto &enemy : enemies) {
         if(enemy.isAlive()) enemy.draw();
@@ -70,6 +86,11 @@ void Drawer::moveSpacecraft(unsigned char key){
     glutPostRedisplay();
 }
 
+void Drawer::updateProjectiles(float deltaTime) {
+    for (auto& projectile : Utility::projectiles) {
+        projectile.update(deltaTime);
+    }
+}
 // in case of timer mode: a call from Initializer::endOfTimedGame()
 // in case of survival mode:
 //      decrease health has return pair if timer mode visual effect is applied then respawn ***

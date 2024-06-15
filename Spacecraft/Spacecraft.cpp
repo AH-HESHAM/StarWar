@@ -1,17 +1,18 @@
-// Spacecraft.cpp
-
-#include "Spacecraft.h"
-#include "../Utility.h"
 #include <GL/glut.h>
 #include <cmath>
-#include <stdio.h>
+#include <iostream>
+#include <chrono>
+#include "Spacecraft.h"
+#include "../Projectile/Projectile.cpp"
+#include "../CollisionDetector/Object.h"
+#include "../Utility.h"
 
 using namespace std;
 
 const float Spacecraft::MAX_HEALTH = 120;
 
 Spacecraft::Spacecraft(float initialX, float initialZ, float initialAngle)
-    : x(initialX), z(initialZ), angle(initialAngle), size(10.0f) {
+    : x(initialX), z(initialZ), angle(initialAngle), size(10.0f), lastShootTime(0.0) {
     x = this->initialX = initialX;
     z = this->initialZ = initialZ;
     angle = this->initialAngle = initialAngle;
@@ -49,3 +50,12 @@ float Spacecraft::getMinDistanceBetweenTwoSC() {
     return 50.0f;
 }
 
+void Spacecraft::shoot() {
+    const float projectileSpeed = 10.0f;
+    const float projectileDamage = 10.0f;
+    if(Utility::getCurrentTime() - lastShootTime > 0.5f){
+        lastShootTime = Utility::getCurrentTime();
+        Utility::projectiles.emplace_back(glm::vec3(x, 0.0f, z), glm::vec3(sin(angle * Utility::PI / 180.0f), 0.0f, -cos(angle * Utility::PI / 180.0f)), projectileSpeed, projectileDamage);
+        Utility::projectiles.back().update(0.7f);
+    }
+}

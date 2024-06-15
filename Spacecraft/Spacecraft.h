@@ -1,11 +1,25 @@
-// Spacecraft.h
+#include "../Projectile/Projectile.h"
 
+#include <vector>
 #ifndef SPACECRAFT_H
 #define SPACECRAFT_H
 
 #include "../Utility.h"
 
 class Spacecraft {
+protected:
+    float initialX;
+    float initialZ;
+    float initialAngle;
+    float x;
+    float z;
+    float angle;
+    float size;
+    float health;
+    static const float MAX_HEALTH;
+    const float DEFAULT_DISTANCE_TO_MOVE = 10.0f;
+    double lastShootTime;
+    int respawnCounter = 0;
 public:
     Spacecraft(float initialX, float initialZ, float initialAngle);
 
@@ -26,19 +40,7 @@ public:
     float getDefaultNumberOfUnits() { return DEFAULT_DISTANCE_TO_MOVE; }
     static float getMinDistanceBetweenTwoSC();
     static float getMaxHealth() { return MAX_HEALTH; }
-protected:
-    float initialX;
-    float initialZ;
-    float initialAngle;
-    float x;
-    float z;
-    float angle;
-    float size;
-    float health;
-    static const float MAX_HEALTH;
-    const float DEFAULT_DISTANCE_TO_MOVE = 10.0f;
-
-    int respawnCounter = 0;
+    void shoot();
 };
 
 #endif

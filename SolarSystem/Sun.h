@@ -10,10 +10,11 @@ private:
 public:
     Sun() : SpaceBody(6.0, 1.0, 1.0, 0.0) {}
 
-    void drawBody(float aroundFollowerAngle)
+    Object drawBody(float aroundFollowerAngle)
     {
         glColor3f(red, green, blue);
-        glutSolidSphere(redius, 50, 50);
+        glutSolidSphere(radius, 50, 50);
+        return Object(x, y, z, radius, "sun");
     }
 };
 

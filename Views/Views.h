@@ -10,7 +10,7 @@ class Views{
 
 public:
     Views() {}
-    void topView(const std::function<void()>& gameShow);
-    void spaceCraftView(const function<void()> &gameShow, Spacecraft &spacecraft);
+    void topView(const std::function<void(bool)>&gameShow);
+    void spaceCraftView(const function<void(bool)> &gameShow, Spacecraft &spacecraft);
 };
 #endif /* VIEWS_DRAWER_H */
