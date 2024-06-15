@@ -5,7 +5,7 @@
 
 class User: public Spacecraft{
 private:
-    const float damage = 60.5;
+    float damage = 60.5;
     float score = 0;
     float numberOfRespawns = 0;
 public:
@@ -18,6 +18,7 @@ public:
     void increaseScore(float score);
     float increaseHealth() { return health += damage; }
     pair<bool, float> decreaseHealth(float inflictedDamage);
+    void setDamage(float inflictedDamage){ damage = inflictedDamage; }
 
     void respawn();
 };

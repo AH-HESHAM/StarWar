@@ -84,7 +84,9 @@ void Drawer::gameShow(bool isSpacecraftView) {
         for(int i = index ; i < bodies.size() ; i++){
             bodies[i].setIndex(i-index);
         }
-        drawAllObjects(0);
+        for(auto x: drawAllObjects(0, userSpacecraft.getX(), userSpacecraft.getZ(), userSpacecraft.getAngle())){
+            bodies.push_back(x);
+        }
         if(isSpacecraftView) {
             collisionDetector.DetectCollision(bodies);
         }

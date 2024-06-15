@@ -4,7 +4,10 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+#include <vector>
 #include <iostream>
+#include "../CollisionDetector/Object.h"
+#include "../Utility.h"
 
 // Definition of the global objects vector
 std::vector<Item> objects;
@@ -12,7 +15,7 @@ std::vector<Item> objects;
 Item::Item(float x, float z, bool isArrow)
         : x(x), z(z), animationTime(0.0f), isArrow(isArrow) {}
 
-void drawRedArrow(const Item& obj) {
+Object drawRedArrow(const Item& obj, float x, float z, float angle) {
     glColor3f(1.0f, 0.0f, 0.0f);
 
     float halfBase = ARROW_BASE_SIZE / 2.0f;
@@ -48,9 +51,15 @@ void drawRedArrow(const Item& obj) {
     glVertex3f(obj.x + halfBase, verticalOffset, obj.z - halfBase);
     glVertex3f(obj.x - halfBase, verticalOffset, obj.z - halfBase);
     glEnd();
+    float cosAngle = cos(angle*Utility::PI/180.0f);
+    float sinAngle = sin(angle*Utility::PI/180.0f);
+    float reversedX = cosAngle * (obj.x - x) + sinAngle * (obj.z - z);
+    float reversedZ = -sinAngle * (obj.x - x) + cosAngle * (obj.z - z);
+    return Object(reversedX, 0.0f, reversedZ, 2.0f, "arrow");
+
 }
 
-void drawPlusSign(const Item& obj) {
+Object drawPlusSign(const Item& obj, float x, float z, float angle) {
     glColor3f(0.0f, 1.0f, 0.0f);
 
     glBegin(GL_LINES);
@@ -66,18 +75,24 @@ void drawPlusSign(const Item& obj) {
     // Z-axis
     glVertex3f(obj.x, 0, obj.z - PLUS_SIGN_SIZE);
     glVertex3f(obj.x, 0, obj.z + PLUS_SIGN_SIZE);
-
     glEnd();
+    float cosAngle = cos(angle*Utility::PI/180.0f);
+    float sinAngle = sin(angle*Utility::PI/180.0f);
+    float reversedX = cosAngle * (obj.x - x) + sinAngle * (obj.z - z);
+    float reversedZ = -sinAngle * (obj.x - x) + cosAngle * (obj.z - z);
+    return Object(reversedX, 0.0f, reversedZ, 2.0f, "plus");
 }
 
-void drawAllObjects(int value) {
+std::vector<Object> drawAllObjects(int value, float x, float z, float angle) {
+    std::vector<Object> result;
     for (const auto& obj : objects) {
         if (obj.isArrow) {
-            drawRedArrow(obj);
+            result.push_back(drawRedArrow(obj, x, z, angle));
         } else {
-            drawPlusSign(obj);
+            result.push_back(drawPlusSign(obj, x, z, angle));
         }
     }
+    return result;
 }
 
 void initializeObjects() {

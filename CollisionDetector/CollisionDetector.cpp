@@ -82,8 +82,12 @@ void CollisionDetector::HandleCollision(Object first,  Object second ) {
     else if(type1 == "enemy" && type2 == "planet"){
         DecreaseEnemyHealth(first.getIndex(), 120.1);
     }
-    else if(type1 == "item" && type2 == "spacecraft") {
-        cout << "spacecraft collided with items" << endl;
+    else if(type1 == "plus" && type2 == "spacecraft") {
+        cout<<"Plus sign collision with spacecraft"<<endl;
+    }
+    else if(type1 == "arrow" && type2 == "spacecraft"){
+        cout<<"Plus sign collision with spacecraft"<<endl;
+
     }
 }
 
