@@ -71,7 +71,7 @@ int main(int argc, char **argv)
    glutInitContextVersion(4, 3);
    glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-   glutInitWindowSize(700, 700);
+   glutInitWindowSize(1000, 1000);
    glutInitWindowPosition(50, 50);
    glutCreateWindow("Solar system");
    Menu *menu = new Menu(SelectMode, difficultyHandler);

@@ -1,0 +1,3 @@
+/home/mohamed/Graphics_project/StarWar/cmake-build-debug/CMakeFiles/StarWar.dir
+/home/mohamed/Graphics_project/StarWar/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/mohamed/Graphics_project/StarWar/cmake-build-debug/CMakeFiles/rebuild_cache.dir

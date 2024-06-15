@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/StarWar.dir/main.cpp.o CMakeFiles/StarWar.dir/lib/getBMP.cpp.o CMakeFiles/StarWar.dir/Textures/Texture.cpp.o -o StarWar  -lglfw /usr/lib/x86_64-linux-gnu/libGLEW.so /usr/lib/x86_64-linux-gnu/libglut.so /usr/lib/x86_64-linux-gnu/libXi.so /usr/lib/x86_64-linux-gnu/libOpenGL.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libGLU.so 

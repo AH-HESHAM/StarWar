@@ -7,7 +7,10 @@
 #include "Planet.h"
 #include "Sun.h"
 #include "Moon.h"
+#include "../lib/stb_image.h"
+#define PATH "/home/mohamed/Graphics_project/StarWar/skybox/"
 
+#
 class SolarSystem
 {
 private:
@@ -61,15 +64,21 @@ public:
     SolarSystem()
     {
         generateZTranslate();
+        loadSkyboxTextures();
         initSystemItems();
     }
 
     std::vector<Object> drawSolarSystem(float angle, bool isSpaceCraftView)
     {
         std::vector<Object>SpaceBodies;
+
         GLfloat TransformationMatrix[16];
         glPushMatrix();
         glTranslatef(0.0, 0.0, offset);
+
+        drawSkybox();
+
+
         sun->drawBody(0.0, "sun");
         SpaceBodies = drawPlanets(angle);
         glGetFloatv(GL_MODELVIEW_MATRIX, TransformationMatrix);
@@ -80,5 +89,101 @@ public:
         }
         return {};
     }
+    // SkyBox
+    GLuint skyboxTextures[6];
+
+    // Skybox texture loading function
+    void loadSkyboxTextures() {
+        const char* skyboxFaces[6] = {
+                "right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png"
+        };
+
+        glGenTextures(6, skyboxTextures);
+
+        for (int i = 0; i < 6; i++) {
+            int width, height, nrChannels;
+            std::string skyboxPath = PATH + std::string(skyboxFaces[i]);
+            unsigned char* data = stbi_load(skyboxPath.c_str(), &width, &height, &nrChannels, 0);
+            if (data) {
+                glBindTexture(GL_TEXTURE_2D, skyboxTextures[i]);
+                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+                stbi_image_free(data);
+            } else {
+                printf("Failed to load skybox texture: %s\n", skyboxFaces[i]);
+            }
+        }
+    }
+
+    // Skybox drawing function
+    void drawSkybox() {
+        float skyboxSize = 75.0f;
+
+        glPushMatrix();
+        glDisable(GL_DEPTH_TEST);
+        glDepthMask(GL_FALSE);
+
+        // Right face
+        glBindTexture(GL_TEXTURE_2D, skyboxTextures[0]);
+        glBegin(GL_QUADS);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(skyboxSize, -skyboxSize, -skyboxSize);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(skyboxSize, -skyboxSize, skyboxSize);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(skyboxSize, skyboxSize, skyboxSize);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(skyboxSize, skyboxSize, -skyboxSize);
+        glEnd();
+
+        // Left face
+        glBindTexture(GL_TEXTURE_2D, skyboxTextures[1]);
+        glBegin(GL_QUADS);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(-skyboxSize, -skyboxSize, -skyboxSize);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(-skyboxSize, skyboxSize, -skyboxSize);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(-skyboxSize, skyboxSize, skyboxSize);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(-skyboxSize, -skyboxSize, skyboxSize);
+        glEnd();
+
+        // Top face
+        glBindTexture(GL_TEXTURE_2D, skyboxTextures[2]);
+        glBegin(GL_QUADS);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(-skyboxSize, skyboxSize, -skyboxSize);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(-skyboxSize, skyboxSize, skyboxSize);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(skyboxSize, skyboxSize, skyboxSize);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(skyboxSize, skyboxSize, -skyboxSize);
+        glEnd();
+
+        // Bottom face
+        glBindTexture(GL_TEXTURE_2D, skyboxTextures[3]);
+        glBegin(GL_QUADS);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(-skyboxSize, -skyboxSize, -skyboxSize);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(skyboxSize, -skyboxSize, -skyboxSize);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(skyboxSize, -skyboxSize, skyboxSize);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(-skyboxSize, -skyboxSize, skyboxSize);
+        glEnd();
+
+        // Front face
+        glBindTexture(GL_TEXTURE_2D, skyboxTextures[4]);
+        glBegin(GL_QUADS);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(-skyboxSize, -skyboxSize, skyboxSize);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(skyboxSize, -skyboxSize, skyboxSize);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(skyboxSize, skyboxSize, skyboxSize);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(-skyboxSize, skyboxSize, skyboxSize);
+        glEnd();
+
+        // Back face
+        glBindTexture(GL_TEXTURE_2D, skyboxTextures[5]);
+        glBegin(GL_QUADS);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(-skyboxSize, -skyboxSize, -skyboxSize);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(-skyboxSize, skyboxSize, -skyboxSize);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(skyboxSize, skyboxSize, -skyboxSize);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(skyboxSize, -skyboxSize, -skyboxSize);
+        glEnd();
+
+        glDepthMask(GL_TRUE);
+        glEnable(GL_DEPTH_TEST);
+        glPopMatrix();
+    }
+
 };
 #endif

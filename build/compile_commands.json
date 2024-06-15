@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/mohamed/CSED_25/Year_3/term_2/Graphics/project/StarWar/build",
+  "command": "/usr/bin/clang++ -I/usr/include/GLFW -g -o CMakeFiles/StarWar.dir/main.cpp.o -c /home/mohamed/CSED_25/Year_3/term_2/Graphics/project/StarWar/main.cpp",
+  "file": "/home/mohamed/CSED_25/Year_3/term_2/Graphics/project/StarWar/main.cpp",
+  "output": "CMakeFiles/StarWar.dir/main.cpp.o"
+},
+{
+  "directory": "/home/mohamed/CSED_25/Year_3/term_2/Graphics/project/StarWar/build",
+  "command": "/usr/bin/clang++ -I/usr/include/GLFW -g -o CMakeFiles/StarWar.dir/lib/getBMP.cpp.o -c /home/mohamed/CSED_25/Year_3/term_2/Graphics/project/StarWar/lib/getBMP.cpp",
+  "file": "/home/mohamed/CSED_25/Year_3/term_2/Graphics/project/StarWar/lib/getBMP.cpp",
+  "output": "CMakeFiles/StarWar.dir/lib/getBMP.cpp.o"
+},
+{
+  "directory": "/home/mohamed/CSED_25/Year_3/term_2/Graphics/project/StarWar/build",
+  "command": "/usr/bin/clang++ -I/usr/include/GLFW -g -o CMakeFiles/StarWar.dir/Textures/Texture.cpp.o -c /home/mohamed/CSED_25/Year_3/term_2/Graphics/project/StarWar/Textures/Texture.cpp",
+  "file": "/home/mohamed/CSED_25/Year_3/term_2/Graphics/project/StarWar/Textures/Texture.cpp",
+  "output": "CMakeFiles/StarWar.dir/Textures/Texture.cpp.o"
+}
+]
