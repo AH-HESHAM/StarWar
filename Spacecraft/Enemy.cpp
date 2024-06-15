@@ -56,7 +56,7 @@ void Enemy::operate() {
         float userSpacecraftXComponent = Drawer::getInstance().userSpacecraft.getX();
         float userSpacecraftZComponent = Drawer::getInstance().userSpacecraft.getZ();
         if(checkIfUserIsInSight(userSpacecraftXComponent, userSpacecraftZComponent)) {
-            if(state == MOVE_FORWARD) moveForward(getDefaultNumberOfUnits());
+            if(state == MOVE_FORWARD && distanceBetweenEnemyAndUser() > Spacecraft::getMinDistanceBetweenTwoSC()) moveForward(getDefaultNumberOfUnits());
             else { /* projectile to apply. */ }
             switchState();
         } else {
@@ -90,5 +90,9 @@ void Enemy::respawn() {
     x = initialX;
     z = initialZ;
     angle = initialAngle;
+}
+
+float Enemy::distanceBetweenEnemyAndUser() {
+    return sqrt(pow(Drawer::getInstance().userSpacecraft.getX() - x, 2) + pow(Drawer::getInstance().userSpacecraft.getZ() - z, 2));
 }
 

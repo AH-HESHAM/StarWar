@@ -26,6 +26,8 @@ public:
     bool isInFrontOfEnemy(float ex, float ez, float vx, float vz, float ux, float uz);
 
     void respawn();
+
+    float distanceBetweenEnemyAndUser();
 };
 
 

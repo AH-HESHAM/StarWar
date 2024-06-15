@@ -19,7 +19,7 @@ void Views::topView(const std::function<void()> &gameShow) {
     gameShow();
 }
 
-void Views::spaceCraftView(const std::function<void()>& gameShow, Spacecraft &spacecraft) {
+void Views::spaceCraftView(const std::function<void()> &gameShow, Spacecraft &spacecraft) {
     glLoadIdentity();
     glViewport(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
     double randomDistance = 10.0;

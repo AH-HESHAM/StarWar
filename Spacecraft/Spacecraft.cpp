@@ -45,3 +45,7 @@ double Spacecraft::getXComponentOfViewedPoint(double randomDistance) {
     return x + randomDistance * sin(angle * Utility::PI / 180.0f);
 }
 
+float Spacecraft::getMinDistanceBetweenTwoSC() {
+    return 50.0f;
+}
+

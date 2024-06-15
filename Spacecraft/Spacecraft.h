@@ -24,6 +24,7 @@ public:
     bool isAlive() const { return health > Utility::EPSILON; }
     float getHealth() const { return health; }
     float getDefaultNumberOfUnits() { return DEFAULT_DISTANCE_TO_MOVE; }
+    static float getMinDistanceBetweenTwoSC();
     static float getMaxHealth() { return MAX_HEALTH; }
 protected:
     float initialX;
@@ -36,6 +37,7 @@ protected:
     float health;
     static const float MAX_HEALTH;
     const float DEFAULT_DISTANCE_TO_MOVE = 10.0f;
+
     int respawnCounter = 0;
 };
 

@@ -1,7 +1,3 @@
-//
-// Created by BLURAY on 6/14/2024.
-//
-
 #ifndef STARWAR_INITIALIZER_H
 #define STARWAR_INITIALIZER_H
 
