@@ -8,7 +8,7 @@ private:
     Drawer(): views(), spacecraft(0.0f, 0, 0.0f), solarSystem() {}
     static Drawer instance;
     Views views;
-
+    vector<Projectile> projectiles;
 public:
     Spacecraft spacecraft;
     SolarSystem solarSystem;
@@ -19,6 +19,7 @@ public:
     void drawScene();
     void gameShow(bool isSpacecraftView);
     void moveSpacecraft(unsigned char key);
+    void addProjectile(Projectile projectile) { projectiles.push_back(projectile);}
 };
 
 

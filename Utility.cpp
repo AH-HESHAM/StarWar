@@ -6,10 +6,10 @@ const double Utility::frustumTop = 5.0;
 const double Utility::frustumZNear = 5.0;
 const double Utility::frustumZFar = 100.0;
 const double Utility::PI = 3.14159265359;
-Object Utility::TransformPoint(float radius, const float TransformationMatrix[], const string& type) {
+Object Utility::TransformPoint(float x, float y, float z, float radius, const float TransformationMatrix[], const string& type) {
 
     // The original coordinates
-    float original[4] = {0.0f, 0.0f, 0.0f, 1.0f};
+    float original[4] = {x, y, z, 1.0f};
 
     // Transformed coordinates
     float transformed[4] = {0, 0, 0, 0};

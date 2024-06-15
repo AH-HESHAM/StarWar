@@ -22,6 +22,15 @@ void HandleCollision(const string& type1, const string& type2) {
     else if ((type1 == "projectile" && type2 == "spacecraft") || (type1 == "spacecraft" && type2 == "projectile")) {
         cout << "Spacecraft collided with Projectile" << endl;
     }
+    else if((type1 == "projectile" && type2 == "planet") || (type1 == "planet" && type2 == "projectile")){
+        cout<<"planet collided with projectile"<<endl;
+    }
+    else if((type1 == "projectile" && type2 == "moon") || (type1 == "moon" && type2 == "projectile")){
+        cout<<"moon collided with projectile"<<endl;
+    }
+    else if((type1 == "projectile" && type2 == "sun") || (type1 == "sun" && type2 == "projectile")){
+        cout<<"sun collided with projectile"<<endl;
+    }
     else if((type1 == "spacecraft" && type2 == "items") || (type1 == "items" && type2 == "spacecraft")) {
         cout << "spacecraft collided with items" << endl;
     }

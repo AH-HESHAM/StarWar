@@ -20,7 +20,7 @@ public:
         glutSolidSphere(radius, 50, 50);
         glGetFloatv(GL_MODELVIEW_MATRIX, TransformationMatrix);
         glPopMatrix();
-        return Utility::TransformPoint(radius, TransformationMatrix, "planet");
+        return Utility::TransformPoint(0.0, 0.0, 0.0, radius, TransformationMatrix, "planet");
     }
 };
 #endif

@@ -11,7 +11,7 @@ public:
     static const double frustumZNear;
     static const double frustumZFar;
     static const double PI;
-    static Object TransformPoint(float radius, const float TransformationMatrix[], const std::string& type);
+    static Object TransformPoint(float x, float y, float z, float radius, const float TransformationMatrix[], const std::string& type);
 
 };
 

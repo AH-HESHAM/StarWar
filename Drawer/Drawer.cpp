@@ -2,6 +2,7 @@
 #include <GL/freeglut.h>
 #include "../Views/Views.h"
 #include "../CollisionDetector/CollisionDetector.cpp"
+#include "../Projectile/Projectile.h"
 #include <iostream>
 
 using namespace std;
@@ -27,9 +28,13 @@ void Drawer::drawScene() {
 
 void Drawer::gameShow(bool isSpacecraftView) {
     glColor3f(0.0, 0.0, 0.0);
-    vector<Object>bodies = solarSystem.drawSolarSystem(sunSpinAngle, isSpacecraftView);
-    bodies.push_back(spacecraft.draw());
-    DetectCollision(bodies);
+    vector<Object>bodies = solarSystem.drawSolarSystem(sunSpinAngle);
+    for(const auto& obj: spacecraft.draw()) {
+        bodies.push_back(obj);
+    }
+    if(isSpacecraftView) {
+        DetectCollision(bodies);
+    }
 }
 
 Drawer Drawer::getInstance() {

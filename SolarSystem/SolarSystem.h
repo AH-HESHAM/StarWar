@@ -62,7 +62,7 @@ public:
         initSystemItems();
     }
 
-    std::vector<Object> drawSolarSystem(float angle, bool isSpaceCraftView)
+    std::vector<Object> drawSolarSystem(float angle)
     {
         std::vector<Object>SpaceBodies;
         GLfloat TransformationMatrix[16];
@@ -72,11 +72,8 @@ public:
         SpaceBodies = drawPlanets(angle);
         glGetFloatv(GL_MODELVIEW_MATRIX, TransformationMatrix);
         glPopMatrix();
-        if(isSpaceCraftView){
-            SpaceBodies.push_back(Utility::TransformPoint(sun->getRadius(), TransformationMatrix, "sun"));
-            return SpaceBodies;
-        }
-        return {};
+        SpaceBodies.push_back(Utility::TransformPoint(sun->getX(), sun->getY(), sun->getZ(), sun->getRadius(), TransformationMatrix, "sun"));
+        return SpaceBodies;
     }
 };
 #endif
