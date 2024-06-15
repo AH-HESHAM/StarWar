@@ -1,6 +1,7 @@
 #include "Initializer.h"
-#include "Mode/ModeUtility.h"
-#include "Drawer/Drawer.h"
+#include "../../Mode/ModeUtility.h"
+#include "../Drawer.h"
+#include "../../Game/Game.h"
 #include <vector>
 
 void periodicEnemyOperation(int operationNumber);
@@ -41,7 +42,7 @@ void periodicEnemyOperation(int operationNumber) {
 }
 
 void Initializer::timerModeInitializer() {
-    if(ModeUtility::getMode() == ModeUtility::ChoosenMode::TIMER) gameTimerGenerator();
+    if(ModeUtility::isTimerMode()) gameTimerGenerator();
 }
 
 void endOfTimedGame(int unused) {

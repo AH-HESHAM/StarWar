@@ -16,9 +16,9 @@ std::map<ModeUtility::Difficulty, int> ModeUtility::numberOfEnemies = {
 };
 
 std::map<ModeUtility::Difficulty, int> ModeUtility::gameTimer = {
-        {ModeUtility::EASY, 3000},
-        {ModeUtility::MEDIUM, 5000},
-        {ModeUtility::HARD, 10000}
+        {ModeUtility::EASY, 3000 * 60},
+        {ModeUtility::MEDIUM, 5000 * 60},
+        {ModeUtility::HARD, 10000 * 60}
 };
 
 ModeUtility::ChoosenMode ModeUtility::getMode()
@@ -28,7 +28,14 @@ ModeUtility::ChoosenMode ModeUtility::getMode()
     else
         return SURVIVAL;
 }
-
+bool ModeUtility::isSurvivalMode()
+{
+    return ModeUtility::getMode() == SURVIVAL;
+}
+bool ModeUtility::isTimerMode()
+{
+    return ModeUtility::getMode() == TIMER;
+}
 ModeUtility::Difficulty ModeUtility::getDifficulty()
 {
     switch (ModeUtility::modeDiff % 10)

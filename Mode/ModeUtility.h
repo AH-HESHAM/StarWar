@@ -25,6 +25,10 @@ public:
     static int modeDiff;
     static Difficulty getDifficulty();
     static ChoosenMode getMode();
+
+    static bool isSurvivalMode();
+
+    static bool isTimerMode();
 };
 
 #endif // STARWAR_MODEUTILITY_H

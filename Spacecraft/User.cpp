@@ -50,7 +50,7 @@ pair<bool, float> User::decreaseHealth() {
     health -= damage;
     if(isAlive()) return {true, health};
 
-    if(ModeUtility::getMode() == ModeUtility::ChoosenMode::TIMER) respawn();
+    if(ModeUtility::isTimerMode()) respawn();
     return {false, health};
 }
 

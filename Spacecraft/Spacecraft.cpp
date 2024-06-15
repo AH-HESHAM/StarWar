@@ -8,6 +8,8 @@
 
 using namespace std;
 
+const float Spacecraft::MAX_HEALTH = 120;
+
 Spacecraft::Spacecraft(float initialX, float initialZ, float initialAngle)
     : x(initialX), z(initialZ), angle(initialAngle), size(10.0f) {
     x = this->initialX = initialX;

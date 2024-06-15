@@ -18,7 +18,7 @@ void Game::endGame(float score, float spawns) {
     gameIsRunning = false;
     endGameText.emplace_back("Game is over\n");
     endGameText.push_back("Score: " + to_string(score) + "\n");
-    if (ModeUtility::getMode() == ModeUtility::ChoosenMode::TIMER)
+    if (ModeUtility::isTimerMode())
         endGameText.push_back("Number of respawns: " + to_string(spawns) + "\n");
     endGameText.emplace_back("Press ESC to exit");
 
@@ -53,7 +53,7 @@ void Game::drawEndGameScreen() {
 
     // Render text
     float x = 250;
-    float y = 700 - 250;
+    float y = glutGet(GLUT_WINDOW_HEIGHT) - 250;
     for (const auto &line : endGameText) {
         renderBitmapString(x, y, GLUT_BITMAP_HELVETICA_18, line.c_str());
         y -= 20.0f;

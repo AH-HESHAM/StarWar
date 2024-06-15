@@ -4,11 +4,13 @@
 #include "../Views/Views.h"
 #include "../Spacecraft/User.h"
 #include "../Spacecraft/Enemy.h"
-#include "Drawer/Initializer/Initializer.h"
+#include "./Initializer/Initializer.h"
+#include "./Timer/Timer.h"
 
 class Drawer {
 private:
     Views views;
+    Timer timer;
     Initializer &initializer;
     std::vector<Enemy> enemies;
     std::function<void(float, float)> endGame;
@@ -32,5 +34,14 @@ public:
     void drawerInitializer(const std::function<void(float, float)> &endGameCallback);
     vector<Enemy>& getEnemies() { return enemies; }
     void endOfGame();
+    void renderBitmapString(float x, float y, void *font, const char *string);
+    void drawScoreboard();
+    void drawHealthBar(float xOfHealthBar, float yOfHealthBar, float totalLHealthBarWidth, float totalLHealthBarHeight);
+
+    void healthBarHandler();
+
+    void timerShowHandler();
+
+    void killsShowHandler();
 };
 #endif

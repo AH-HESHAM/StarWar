@@ -8,7 +8,7 @@
 float sunSpinAngle = 0.0;
 int rotationSpeed = 100;
 
-void Views::topView(const std::function<void()>& gameShow) {
+void Views::topView(const std::function<void()> &gameShow) {
     glLoadIdentity();
     int lowerPoint = glutGet(GLUT_WINDOW_HEIGHT) * 2 / 3;
     int higherPoint = glutGet(GLUT_WINDOW_HEIGHT) - 10;
